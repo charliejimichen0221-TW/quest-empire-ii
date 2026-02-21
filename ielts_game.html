@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IELTS 闖關密碼 — Argument Quest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- SCREEN 0: Landing -->
+  <div id="landing" class="screen active">
+    <div style="margin-top:15vh"></div>
+    <h1>🎮 IELTS 闖關密碼</h1>
+    <h2 style="color:var(--dim);font-size:1rem">Argument Quest — 論點產生器遊戲</h2>
+    <p class="subtitle">透過 4 個關卡，不知不覺記住 9 大家族 × 12 大引擎的萬用論證系統。<br>結合 Kimi 2.5 AI 即時評分，讓你寫出 Band 7+ 段落！</p>
+    <div class="glass" style="max-width:500px;width:100%;text-align:center">
+      <p style="margin-bottom:1rem;font-size:.9rem">🔑 GitCode Kimi 2.5 API Key（可選，啟用 AI 評分）</p>
+      <div class="api-input">
+        <input type="text" id="apiKey" value="zxs7bsVHVLN47Yy71XJQPS5y" placeholder="Bearer Token...">
+        <button class="btn btn-sm btn-outline" onclick="testApi()">驗證</button>
+      </div>
+      <p id="apiStatus" style="font-size:.8rem;color:var(--dim)">未輸入 Key 也可以玩，但無法使用 AI 評分功能</p>
+      <div style="margin-top:1rem;display:flex;align-items:center;gap:.8rem;justify-content:center">
+        <label for="aiQuestionCount" style="font-size:.85rem;color:var(--dim)">🤖 AI 出題數</label>
+        <input type="range" id="aiQuestionCount" min="1" max="6" value="3" step="1"
+          style="width:120px;accent-color:var(--accent)"
+          oninput="document.getElementById('aiQCountVal').textContent = this.value">
+        <span id="aiQCountVal" style="font-size:.95rem;font-weight:700;min-width:1.2em;text-align:center">3</span>
+        <span style="font-size:.8rem;color:var(--dim)">題</span>
+      </div>
+    </div>
+    <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center">
+      <button class="btn btn-primary" onclick="startGame()" style="font-size:1.1rem;padding:1rem 3rem">🚀 開始闖關</button>
+      <button class="btn btn-outline" onclick="startHypernymPractice()" style="font-size:1rem;padding:1rem 2rem">📚
+        Hypernym 詞庫訓練</button>
+    </div>
+    <div class="stats" style="margin-top:3rem">
+      <div class="stat">
+        <div class="stat-val">4</div>
+        <div class="stat-label">關卡</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">9</div>
+        <div class="stat-label">家族</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">12</div>
+        <div class="stat-label">引擎</div>
+      </div>
+      <div class="stat">
+        <div class="stat-val">210</div>
+        <div class="stat-label">真題</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN: Hypernym Vocabulary Practice -->
+  <div id="hypernymPractice" class="screen">
+    <h2>📚 Hypernym 詞庫訓練</h2>
+    <p class="subtitle" id="hpModeLabel">強化中英文 Hypernym 替換詞記憶</p>
+    <div class="step-indicator" id="hpSteps"></div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="hpProgress" style="width:0%"></div>
+    </div>
+    <div class="question-card glass" id="hpQuestion"></div>
+    <div id="hpAnswers" style="max-width:600px;width:100%"></div>
+    <div id="hpFeedback" style="margin-top:1rem;text-align:center;max-width:650px;width:100%"></div>
+  </div>
+
+  <!-- SCREEN 1: Phase 1 - Family Identifier -->
+  <div id="phase1" class="screen">
+    <h2>🏰 關卡 1：家族辨識</h2>
+    <p class="subtitle">看到 IELTS 題目 → 選出正確的 Hypernym 家族（可多選）</p>
+    <div class="step-indicator" id="p1Steps"></div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="p1Progress" style="width:0%"></div>
+    </div>
+    <div class="question-card glass" id="p1Question"></div>
+    <div class="family-grid" id="p1Families"></div>
+    <button class="btn btn-primary" id="p1Submit" onclick="checkPhase1()" disabled>確認選擇</button>
+    <div id="p1Feedback" style="margin-top:1rem;text-align:center"></div>
+  </div>
+
+  <!-- SCREEN 2: Phase 2 - Engine Match -->
+  <div id="phase2" class="screen">
+    <h2>⚙️ 關卡 2：引擎配對</h2>
+    <p class="subtitle">看到引擎公式 → 判斷它是哪個引擎編號</p>
+    <div class="step-indicator" id="p2Steps"></div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="p2Progress" style="width:0%"></div>
+    </div>
+    <div class="question-card glass" id="p2Question"></div>
+    <div class="engine-grid" id="p2Engines"></div>
+    <div id="p2Feedback" style="margin-top:1rem;text-align:center"></div>
+  </div>
+
+  <!-- SCREEN 3: Phase 3 - Build Argument -->
+  <div id="phase3" class="screen">
+    <h2>🔨 關卡 3：論點鍛造</h2>
+    <p class="subtitle">選擇家族 → 挑替換詞 → 用引擎公式寫出論點</p>
+    <div class="step-indicator" id="p3Steps"></div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="p3Progress" style="width:0%"></div>
+    </div>
+    <div class="question-card glass" id="p3Question"></div>
+    <div id="p3StepContent"></div>
+    <div id="p3Feedback" style="margin-top:1rem;text-align:center;max-width:650px;width:100%"></div>
+  </div>
+
+  <!-- SCREEN 4: Phase 4 - Full SOP -->
+  <div id="phase4" class="screen">
+    <h2>🏆 Boss 關：完整 SOP 挑戰</h2>
+    <p class="subtitle">完整走一遍 4 步 SOP，用 Kimi 2.5 AI 評分你的段落</p>
+    <div class="question-card glass" id="p4Question"></div>
+    <div id="p4SopSteps" style="max-width:650px;width:100%"></div>
+    <div class="write-area" id="p4WriteArea" style="display:none">
+      <p style="margin-bottom:.5rem;font-size:.9rem">✍️ 寫出你的 Body Paragraph（用 2-3 個引擎）：</p>
+      <textarea id="p4Text" placeholder="It damages... / {X} makes life more... / Rather than..."></textarea>
+      <button class="btn btn-primary" onclick="submitFinal()" style="margin-top:.5rem;width:100%">🤖 提交給 Kimi 2.5
+        評分</button>
+    </div>
+    <div class="ai-feedback glass" id="p4AI" style="display:none"></div>
+  </div>
+
+  <!-- SCREEN 5: Victory -->
+  <div id="victory" class="screen">
+    <div style="margin-top:10vh"></div>
+    <div style="font-size:5rem">🏆</div>
+    <h1>恭喜通關！</h1>
+    <p class="subtitle">你已經掌握了 IELTS 論點產生器的核心系統</p>
+    <div class="stats" id="finalStats"></div>
+    <div class="aha-box glass" id="finalAha"></div>
+    <button class="btn btn-primary" onclick="location.reload()" style="margin-top:2rem">🔄 再玩一次</button>
+    <div id="analyticsDashboard"></div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="analytics.js"></script>
+  <script src="game.js"></script>
+</body>
+
+</html>

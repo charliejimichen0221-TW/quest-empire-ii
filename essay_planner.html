@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚔️ Quest Empire II: The Forge</title>
+    <meta name="description" content="Quest Empire II: The Forge — IELTS Task 2 寫作鍛造爐：從任意題目出發，鍛造論點、詞彙與段落引擎">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --card: #222633;
+            --border: #2e3347;
+            --text: #e8e9ed;
+            --dim: #8b8fa3;
+            --accent: #6c5ce7;
+            --accent2: #a29bfe;
+            --green: #00cec9;
+            --orange: #fdcb6e;
+            --red: #e17055;
+            --pink: #fd79a8;
+            --radius: 14px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, .4);
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 2.5rem 0 1.5rem
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent2), var(--green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .header p {
+            color: var(--dim);
+            margin-top: .5rem;
+            font-size: .9rem
+        }
+
+        /* Steps Nav */
+        .steps-nav {
+            display: flex;
+            gap: .5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            padding: .5rem 0
+        }
+
+        .step-dot {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            padding: .5rem 1rem;
+            border-radius: 99px;
+            font-size: .8rem;
+            font-weight: 600;
+            background: var(--card);
+            color: var(--dim);
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: all .3s;
+            white-space: nowrap
+        }
+
+        .step-dot.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(108, 92, 231, .4)
+        }
+
+        .step-dot.done {
+            background: var(--green);
+            color: #000;
+            border-color: var(--green)
+        }
+
+        /* Panels */
+        .panel {
+            display: none;
+            animation: fadeIn .4s
+        }
+
+        .panel.active {
+            display: block
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: all .3s
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(108, 92, 231, .15)
+        }
+
+        .card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: .5rem
+        }
+
+        .card p {
+            color: var(--dim);
+            font-size: .88rem;
+            line-height: 1.6
+        }
+
+        /* Input */
+        .input-area {
+            position: relative;
+            margin: 1.5rem 0
+        }
+
+        .input-area textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 1rem;
+            border-radius: var(--radius);
+            border: 2px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color .3s
+        }
+
+        .input-area textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(108, 92, 231, .2)
+        }
+
+        .input-area textarea::placeholder {
+            color: var(--dim)
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .75rem 1.8rem;
+            border-radius: 99px;
+            border: none;
+            font-size: .9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .3s
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, .4)
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(108, 92, 231, .6)
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border);
+            color: var(--text)
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent2)
+        }
+
+        .btn-sm {
+            padding: .5rem 1rem;
+            font-size: .8rem
+        }
+
+        .btn-row {
+            display: flex;
+            gap: .8rem;
+            flex-wrap: wrap;
+            margin-top: 1rem
+        }
+
+        /* Cluster Grid */
+        .cluster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: .8rem;
+            margin: 1rem 0
+        }
+
+        .cluster-card {
+            padding: 1rem;
+            border-radius: var(--radius);
+            background: var(--surface);
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: all .3s
+        }
+
+        .cluster-card:hover,
+        .cluster-card.selected {
+            border-color: var(--accent);
+            background: var(--card);
+            transform: scale(1.02)
+        }
+
+        .cluster-card.selected {
+            box-shadow: 0 0 20px rgba(108, 92, 231, .3)
+        }
+
+        .cluster-card .icon {
+            font-size: 1.4rem
+        }
+
+        .cluster-card .name {
+            font-weight: 700;
+            font-size: .95rem;
+            margin: .3rem 0
+        }
+
+        .cluster-card .conflict {
+            font-size: .78rem;
+            color: var(--dim)
+        }
+
+        /* Arguments Table */
+        .arg-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: .88rem
+        }
+
+        .arg-table th {
+            text-align: left;
+            padding: .6rem .8rem;
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            color: var(--accent2);
+            font-weight: 600
+        }
+
+        .arg-table td {
+            padding: .6rem .8rem;
+            border-bottom: 1px solid var(--border);
+            line-height: 1.5
+        }
+
+        .arg-table tr:hover td {
+            background: rgba(108, 92, 231, .05)
+        }
+
+        /* Vocab Pills */
+        .vocab-section {
+            margin: 1rem 0
+        }
+
+        .vocab-row {
+            display: flex;
+            align-items: flex-start;
+            gap: .8rem;
+            padding: .6rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .05);
+            flex-wrap: wrap
+        }
+
+        .vocab-label {
+            flex: 0 0 auto;
+            padding: .3rem .8rem;
+            border-radius: 99px;
+            font-size: .78rem;
+            font-weight: 600;
+            background: rgba(108, 92, 231, .15);
+            color: var(--accent2);
+            white-space: nowrap
+        }
+
+        .vocab-words {
+            font-size: .85rem;
+            color: var(--dim);
+            line-height: 1.6
+        }
+
+        /* Engine Cards */
+        .engine-card {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.2rem;
+            margin: .8rem 0;
+            cursor: pointer;
+            transition: all .3s
+        }
+
+        .engine-card:hover {
+            border-color: var(--green)
+        }
+
+        .engine-card.selected {
+            border-color: var(--green);
+            box-shadow: 0 0 15px rgba(0, 206, 201, .2)
+        }
+
+        .engine-card .eid {
+            font-weight: 800;
+            color: var(--green);
+            font-size: .85rem
+        }
+
+        .engine-card .formula {
+            font-size: .92rem;
+            margin: .5rem 0;
+            font-style: italic;
+            color: var(--orange)
+        }
+
+        .engine-card .example {
+            font-size: .82rem;
+            color: var(--dim);
+            margin-top: .5rem;
+            padding: .8rem;
+            background: rgba(0, 0, 0, .2);
+            border-radius: 8px;
+            line-height: 1.6
+        }
+
+        /* Output */
+        .output-box {
+            background: var(--surface);
+            border: 2px solid var(--green);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            line-height: 1.8;
+            font-size: .92rem;
+            position: relative
+        }
+
+        .output-box .copy-btn {
+            position: absolute;
+            top: .8rem;
+            right: .8rem;
+            padding: .4rem .8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--dim);
+            cursor: pointer;
+            font-size: .75rem;
+            transition: all .3s
+        }
+
+        .output-box .copy-btn:hover {
+            color: var(--green);
+            border-color: var(--green)
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: .2rem .6rem;
+            border-radius: 6px;
+            font-size: .75rem;
+            font-weight: 600;
+            margin: .2rem
+        }
+
+        .tag-blue {
+            background: rgba(108, 92, 231, .15);
+            color: var(--accent2)
+        }
+
+        .tag-green {
+            background: rgba(0, 206, 201, .15);
+            color: var(--green)
+        }
+
+        .tag-orange {
+            background: rgba(253, 203, 110, .15);
+            color: var(--orange)
+        }
+
+        /* API Key Bar */
+        .api-bar {
+            display: flex;
+            gap: .6rem;
+            align-items: center;
+            padding: .8rem 1rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            flex-wrap: wrap
+        }
+
+        .api-bar label {
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--dim);
+            white-space: nowrap
+        }
+
+        .api-bar input {
+            flex: 1;
+            min-width: 200px;
+            padding: .5rem .8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            font-size: .82rem;
+            font-family: monospace
+        }
+
+        .api-bar input:focus {
+            outline: none;
+            border-color: var(--accent)
+        }
+
+        .api-status {
+            font-size: .75rem;
+            color: var(--dim)
+        }
+
+        .api-verify-btn {
+            padding: .4rem .8rem;
+            border-radius: 8px;
+            border: 1px solid var(--accent);
+            background: transparent;
+            color: var(--accent);
+            font-size: .75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .3s;
+            white-space: nowrap;
+            font-family: inherit
+        }
+
+        .api-verify-btn:hover {
+            background: var(--accent);
+            color: #fff
+        }
+
+        .api-verify-btn:disabled {
+            opacity: .5;
+            cursor: not-allowed
+        }
+
+        .api-status.ok {
+            color: var(--green)
+        }
+
+        .api-status.err {
+            color: var(--red)
+        }
+
+        /* AI Loading */
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .ai-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin .6s linear infinite;
+            vertical-align: middle;
+            margin-right: .4rem
+        }
+
+        .ai-loading {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: 1rem;
+            color: var(--dim);
+            font-size: .85rem
+        }
+
+        /* AI Output */
+        .ai-draft {
+            background: var(--surface);
+            border: 2px solid var(--accent);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            line-height: 1.9;
+            font-size: .92rem;
+            position: relative;
+            white-space: pre-wrap
+        }
+
+        .ai-draft .copy-btn {
+            position: absolute;
+            top: .8rem;
+            right: .8rem;
+            padding: .4rem .8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--dim);
+            cursor: pointer;
+            font-size: .75rem;
+            transition: all .3s
+        }
+
+        .ai-draft .copy-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent)
+        }
+
+        .btn-ai {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            color: #000;
+            box-shadow: 0 4px 15px rgba(0, 206, 201, .3)
+        }
+
+        .btn-ai:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 206, 201, .5)
+        }
+
+        .btn-ai:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1.5rem;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 0;
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 99px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .4);
+            transition: border-color .3s
+        }
+
+        .lang-toggle:hover {
+            border-color: var(--accent)
+        }
+
+        .lang-btn {
+            padding: .45rem 1rem;
+            font-size: .8rem;
+            font-weight: 600;
+            border: none;
+            background: transparent;
+            color: var(--dim);
+            cursor: pointer;
+            transition: all .3s;
+            font-family: inherit
+        }
+
+        .lang-btn.active {
+            background: var(--accent);
+            color: #fff
+        }
+
+        /* Responsive */
+        @media(max-width:600px) {
+            .container {
+                padding: 1rem
+            }
+
+            .header h1 {
+                font-size: 1.4rem
+            }
+
+            .cluster-grid {
+                grid-template-columns: 1fr
+            }
+
+            .steps-nav {
+                gap: .3rem
+            }
+
+            .step-dot {
+                padding: .4rem .7rem;
+                font-size: .72rem
+            }
+
+            .lang-toggle {
+                top: .5rem;
+                right: .5rem
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button class="lang-btn active" id="langZh" onclick="switchLang('zh')">中文</button>
+        <button class="lang-btn" id="langEn" onclick="switchLang('en')">EN</button>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>⚔️ Quest Empire II: The Forge</h1>
+            <p data-i18n="headerDesc">貼上任何 Task 2 題目 → Kimi AI 智能分析 → 自動生成段落</p>
+        </div>
+
+        <div class="api-bar">
+            <label>🔑 API Key</label>
+            <input type="password" id="apiKeyInput" data-i18n-placeholder="apiPlaceholder"
+                placeholder="GitCode API Key（啟用 AI 功能）" value="zxs7bsVHVLN47Yy71XJQPS5y" />
+            <button class="api-verify-btn" id="btnVerifyApi" onclick="verifyApiKey()" data-i18n="btnVerify">🔍
+                驗證</button>
+            <span class="api-status" id="apiStatus" data-i18n="apiUnverified">未驗證</span>
+        </div>
+
+        <div class="steps-nav" id="stepsNav">
+            <div class="step-dot active" data-step="0" data-i18n="step0">① 貼題目</div>
+            <div class="step-dot" data-step="1" data-i18n="step1">② 選集群</div>
+            <div class="step-dot" data-step="2" data-i18n="step2">③ 論點</div>
+            <div class="step-dot" data-step="3" data-i18n="step3">④ 詞彙</div>
+            <div class="step-dot" data-step="4" data-i18n="step4">⑤ 引擎</div>
+            <div class="step-dot" data-step="5" data-i18n="step5">⑥ 組裝</div>
+        </div>
+
+        <!-- Step 0: Input -->
+        <div class="panel active" id="panel0">
+            <div class="card">
+                <h3 data-i18n="s0Title">📝 貼上你的 IELTS Task 2 題目</h3>
+                <p data-i18n="s0Desc">不在列表中的題目也可以！系統會幫你找到最接近的集群。</p>
+                <div class="input-area">
+                    <textarea id="essayInput" data-i18n-placeholder="s0Placeholder"
+                        placeholder="例如：Some people think that fast food should be banned. Others think it is a matter of personal choice. Discuss both views and give your opinion."></textarea>
+                </div>
+                <div class="btn-row">
+                    <button class="btn btn-primary" onclick="analyzeQuestion()" data-i18n="btnKeyword">🔍 關鍵詞匹配
+                        →</button>
+                    <button class="btn btn-ai" id="btnAiAnalyze" onclick="aiAnalyzeQuestion()"
+                        data-i18n="btnAiAnalyze">🤖 Kimi AI 分析 →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Cluster -->
+        <div class="panel" id="panel1">
+            <div class="card">
+                <h3 data-i18n="s1Title">🎯 選擇最接近的集群</h3>
+                <p id="clusterHint" data-i18n="s1Hint">系統推薦如下，你也可以自行選擇：</p>
+            </div>
+            <div class="cluster-grid" id="clusterGrid"></div>
+            <div class="btn-row">
+                <button class="btn btn-outline" onclick="goStep(0)" data-i18n="btnBack">← 返回</button>
+                <button class="btn btn-primary" id="btnToStep2" onclick="goStep(2)" disabled
+                    data-i18n="btnConfirmCluster">確認集群 →</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Arguments -->
+        <div class="panel" id="panel2">
+            <div class="card">
+                <h3 id="argTitle" data-i18n="s2Title">💡 核心論點</h3>
+                <p data-i18n="s2Desc">閱讀以下論點，選出你想在文章中使用的 2-3 個方向：</p>
+            </div>
+            <div id="argContent"></div>
+            <div class="btn-row">
+                <button class="btn btn-outline" onclick="goStep(1)" data-i18n="btnBack">← 返回</button>
+                <button class="btn btn-primary" onclick="goStep(3)" data-i18n="btnToVocab">選好了 → 看詞彙</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Vocab -->
+        <div class="panel" id="panel3">
+            <div class="card">
+                <h3 id="vocabTitle" data-i18n="s3Title">📥 詞彙速查</h3>
+                <p data-i18n="s3Desc">以下詞彙可以直接填入你的段落。點擊可複製。</p>
+            </div>
+            <div id="vocabContent"></div>
+            <div class="btn-row">
+                <button class="btn btn-outline" onclick="goStep(2)" data-i18n="btnBack">← 返回</button>
+                <button class="btn btn-primary" onclick="goStep(4)" data-i18n="btnToEngine">選好了 → 選引擎</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Engines -->
+        <div class="panel" id="panel4">
+            <div class="card">
+                <h3 id="engineTitle" data-i18n="s4Title">⚡ 段落引擎</h3>
+                <p data-i18n="s4Desc">選擇 2-3 個引擎公式來組裝你的段落。點擊選取：</p>
+            </div>
+            <div id="engineContent"></div>
+            <div class="btn-row">
+                <button class="btn btn-outline" onclick="goStep(3)" data-i18n="btnBack">← 返回</button>
+                <button class="btn btn-primary" id="btnToStep5" onclick="buildOutput()" data-i18n="btnBuild">🏗️ 組裝段落
+                    →</button>
+            </div>
+        </div>
+
+        <!-- Step 5: Output -->
+        <div class="panel" id="panel5">
+            <div class="card">
+                <h3 data-i18n="s5Title">🏗️ 你的段落骨架</h3>
+                <p data-i18n="s5Desc">以下是根據你的選擇生成的段落骨架。點擊「AI 寫段落」讓 Kimi 直接寫出完整初稿。</p>
+            </div>
+            <div id="outputContent"></div>
+            <div id="aiDraftArea"></div>
+            <div class="btn-row">
+                <button class="btn btn-outline" onclick="goStep(4)" data-i18n="btnAdjustEngine">← 調整引擎</button>
+                <button class="btn btn-ai" id="btnAiDraft" onclick="aiGenerateDraft()" data-i18n="btnAiDraft">🤖 AI
+                    寫段落</button>
+                <button class="btn btn-primary" onclick="goStep(0)" data-i18n="btnNewTopic">🔄 規劃新題目</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============ I18N ============
+        let currentLang = localStorage.getItem('essay_planner_lang') || 'zh';
+        let aiDraftEn = '';
+        let aiDraftZh = '';
+
+        const I18N = {
+            zh: {
+                headerDesc: '貼上任何 Task 2 題目 → Kimi AI 智能分析 → 自動生成段落',
+                apiPlaceholder: 'GitCode API Key（啟用 AI 功能）',
+                apiUnverified: '未驗證',
+                step0: '① 貼題目', step1: '② 選集群', step2: '③ 論點',
+                step3: '④ 詞彙', step4: '⑤ 引擎', step5: '⑥ 組裝',
+                s0Title: '📝 貼上你的 IELTS Task 2 題目',
+                s0Desc: '不在列表中的題目也可以！系統會幫你找到最接近的集群。',
+                s0Placeholder: '例如：Some people think that fast food should be banned. Others think it is a matter of personal choice. Discuss both views and give your opinion.',
+                btnKeyword: '🔍 關鍵詞匹配 →',
+                btnAiAnalyze: '🤖 Kimi AI 分析 →',
+                s1Title: '🎯 選擇最接近的集群',
+                s1Hint: '系統推薦如下，你也可以自行選擇：',
+                s1HintNoMatch: '未找到精確匹配，請手動選擇最接近的集群：',
+                btnBack: '← 返回',
+                btnConfirmCluster: '確認集群 →',
+                s2Title: '💡 核心論點',
+                s2Desc: '閱讀以下論點，選出你想在文章中使用的 2-3 個方向：',
+                btnToVocab: '選好了 → 看詞彙',
+                s3Title: '📥 詞彙速查',
+                s3Desc: '以下詞彙可以直接填入你的段落。點擊可複製。',
+                btnToEngine: '選好了 → 選引擎',
+                s4Title: '⚡ 段落引擎',
+                s4Desc: '選擇 2-3 個引擎公式來組裝你的段落。點擊選取：',
+                btnBuild: '🏗️ 組裝段落 →',
+                s5Title: '🏗️ 你的段落骨架',
+                s5Desc: '以下是根據你的選擇生成的段落骨架。點擊「AI 寫段落」讓 Kimi 直接寫出完整初稿。',
+                btnAdjustEngine: '← 調整引擎',
+                btnAiDraft: '🤖 AI 寫段落',
+                btnNewTopic: '🔄 規劃新題目',
+                tagRecommend: '✨ 推薦',
+                argDirection: '方向', argCoreArg: '核心論點',
+                argSource: '來源', argCoreQ: '🎯 核心題：',
+                aiExtraTitle: '🤖 AI 針對本題的額外論點',
+                engineRecommend: '推薦',
+                vocabClickCopy: '點擊複製',
+                alertNoQuestion: '請先貼上題目！',
+                alertNoApiKey: '請先輸入 API Key 才能使用 AI 功能',
+                alertNoApiKeyShort: '請先輸入 API Key',
+                alertNoEngine: '請至少選擇一個引擎！',
+                aiAnalyzing: '分析中...',
+                aiWriting: 'Kimi 寫作中...',
+                aiConnected: '✅ 已連線',
+                aiAnalyzeFail: 'AI 分析失敗：',
+                aiGenerateFail: 'AI 生成失敗：',
+                copied: '✅ 已複製',
+                copyBtn: '📋 複製',
+                outputQuestion: '📝 題目：',
+                outputCluster: '集群：',
+                outputVocabLabel: '🎯 可用詞彙：',
+                kimiRecommend: '🤖 Kimi 推薦：',
+                btnVerify: '🔍 驗證',
+                apiVerifying: '驗證中...',
+                apiVerified: '✅ 已驗證',
+                apiInvalid: '❌ Key 無效',
+                apiError: '❌ 驗證失敗',
+            },
+            en: {
+                headerDesc: 'Paste any Task 2 topic → Kimi AI analysis → Auto-generate paragraphs',
+                apiPlaceholder: 'GitCode API Key (enable AI features)',
+                apiUnverified: 'Unverified',
+                step0: '① Topic', step1: '② Cluster', step2: '③ Arguments',
+                step3: '④ Vocab', step4: '⑤ Engine', step5: '⑥ Assemble',
+                s0Title: '📝 Paste your IELTS Task 2 question',
+                s0Desc: 'Any topic works! The system will find the closest cluster.',
+                s0Placeholder: 'e.g. Some people think that fast food should be banned. Others think it is a matter of personal choice. Discuss both views and give your opinion.',
+                btnKeyword: '🔍 Keyword Match →',
+                btnAiAnalyze: '🤖 Kimi AI Analyze →',
+                s1Title: '🎯 Choose the closest cluster',
+                s1Hint: 'System recommendation below. You may also choose manually:',
+                s1HintNoMatch: 'No exact match found. Please choose the closest cluster manually:',
+                btnBack: '← Back',
+                btnConfirmCluster: 'Confirm Cluster →',
+                s2Title: '💡 Core Arguments',
+                s2Desc: 'Read the arguments below and select 2-3 directions for your essay:',
+                btnToVocab: 'Done → View Vocab',
+                s3Title: '📥 Vocabulary Lookup',
+                s3Desc: 'Use these words directly in your paragraphs. Click to copy.',
+                btnToEngine: 'Done → Choose Engines',
+                s4Title: '⚡ Paragraph Engines',
+                s4Desc: 'Select 2-3 engine formulas to build your paragraphs. Click to select:',
+                btnBuild: '🏗️ Build Paragraphs →',
+                s5Title: '🏗️ Your Paragraph Skeleton',
+                s5Desc: 'Here is the skeleton based on your choices. Click "AI Write" for Kimi to generate a full draft.',
+                btnAdjustEngine: '← Adjust Engines',
+                btnAiDraft: '🤖 AI Write',
+                btnNewTopic: '🔄 New Topic',
+                tagRecommend: '✨ Recommended',
+                argDirection: 'Direction', argCoreArg: 'Core Argument',
+                argSource: 'Source', argCoreQ: '🎯 Core Question: ',
+                aiExtraTitle: '🤖 AI Additional Arguments for This Topic',
+                engineRecommend: 'Recommended',
+                vocabClickCopy: 'Click to copy',
+                alertNoQuestion: 'Please paste a question first!',
+                alertNoApiKey: 'Please enter API Key to use AI features',
+                alertNoApiKeyShort: 'Please enter API Key',
+                alertNoEngine: 'Please select at least one engine!',
+                aiAnalyzing: 'Analyzing...',
+                aiWriting: 'Kimi writing...',
+                aiConnected: '✅ Connected',
+                aiAnalyzeFail: 'AI analysis failed: ',
+                aiGenerateFail: 'AI generation failed: ',
+                copied: '✅ Copied',
+                copyBtn: '📋 Copy',
+                outputQuestion: '📝 Question: ',
+                outputCluster: 'Cluster: ',
+                outputVocabLabel: '🎯 Available Vocab:',
+                kimiRecommend: '🤖 Kimi Recommends: ',
+                btnVerify: '🔍 Verify',
+                apiVerifying: 'Verifying...',
+                apiVerified: '✅ Verified',
+                apiInvalid: '❌ Key Invalid',
+                apiError: '❌ Verify Failed',
+            }
+        };
+
+        function t(key) { return I18N[currentLang]?.[key] || I18N['zh'][key] || key; }
+
+        function switchLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('essay_planner_lang', lang);
+            document.documentElement.lang = lang === 'zh' ? 'zh-Hant' : 'en';
+
+            // Toggle button active state
+            document.getElementById('langZh').classList.toggle('active', lang === 'zh');
+            document.getElementById('langEn').classList.toggle('active', lang === 'en');
+
+            // Update all data-i18n elements (textContent)
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (I18N[lang][key] !== undefined) el.textContent = I18N[lang][key];
+            });
+
+            // Update all data-i18n-placeholder elements
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (I18N[lang][key] !== undefined) el.placeholder = I18N[lang][key];
+            });
+
+            // Re-render dynamic content if a cluster is selected
+            if (selectedCluster !== null) {
+                renderArguments();
+                renderVocab();
+                renderEngines();
+                // Re-render output page if engines have been selected (without navigating)
+                if (selectedEngines.size > 0) {
+                    buildOutput(false);
+                }
+            }
+
+            // Update AI draft display if exists
+            showAiDraft();
+        }
+
+        // ============ DATA ============
+        const CLUSTERS = [
+            {
+                id: 'C1', icon: '🏛️', name: '個人自由 vs 社會責任', en: 'Rights vs Rules',
+                keywords: ['freedom', 'ban', 'government', 'restrict', 'regulation', 'smoking', 'control', 'responsibility', 'individual', 'society', 'compulsory', 'health care', 'elderly', 'safety', 'housing'],
+                coreQ: 'Smoking in public places should be banned. Some say it protects health; others say it limits freedom. Discuss.',
+                args: [
+                    { dir: '支持管制', dirEn: 'Pro-regulation', text: '保護弱勢（兒童、病患、貧困者）比個人自由更重要', textEn: 'Protecting the vulnerable (children, patients, the poor) outweighs individual freedom' },
+                    { dir: '支持管制', dirEn: 'Pro-regulation', text: '個人行為有外部成本（healthcare costs, social harm），需要政府介入', textEn: 'Individual behaviour has external costs (healthcare costs, social harm), requiring government intervention' },
+                    { dir: '反對管制', dirEn: 'Anti-regulation', text: '強制規定剝奪選擇權，會造成反感與反彈', textEn: 'Mandatory rules strip away choice and provoke resentment and backlash' },
+                    { dir: '反對管制', dirEn: 'Anti-regulation', text: '個人最清楚自己的需求，教育比管制更有效', textEn: 'Individuals know their own needs best; education is more effective than regulation' },
+                    { dir: '中立折衷', dirEn: 'Balanced', text: '提供教育和誘因（tax incentives, awareness campaigns），而非直接禁止', textEn: 'Provide education and incentives (tax incentives, awareness campaigns) rather than outright bans' }
+                ],
+                vocab: [
+                    { slot: '{政府/機構}', slotEn: '{Government}', words: 'the government / authorities / policymakers / regulators', wordsZh: '政府 / 當局 / 決策者 / 監管機構' },
+                    { slot: '{法律/規定}', slotEn: '{Law/Policy}', words: 'regulation / legislation / a ban / restriction / policy', wordsZh: '法規 / 立法 / 禁令 / 限制 / 政策' },
+                    { slot: '{有害行為}', slotEn: '{Harmful acts}', words: 'smoking / excessive drinking / unsafe practices', wordsZh: '吸菸 / 過度飲酒 / 不安全行為' },
+                    { slot: '{弱勢族群}', slotEn: '{Vulnerable groups}', words: 'children / the elderly / low-income families / non-smokers', wordsZh: '兒童 / 老人 / 低收入家庭 / 非吸菸者' },
+                    { slot: '{個人}', slotEn: '{Individuals}', words: 'citizens / individuals / taxpayers / adults', wordsZh: '公民 / 個人 / 納稅人 / 成年人' },
+                    { slot: '{自由選擇}', slotEn: '{Free choice}', words: 'personal freedom / autonomy / individual rights / choice', wordsZh: '個人自由 / 自主權 / 個人權利 / 選擇' },
+                    { slot: '{外部代價}', slotEn: '{External costs}', words: 'healthcare costs / social harm / public burden', wordsZh: '醫療成本 / 社會危害 / 公共負擔' },
+                    { slot: '{折衷手段}', slotEn: '{Compromise}', words: 'awareness campaigns / tax incentives / designated zones / education', wordsZh: '宣導活動 / 稅務優惠 / 指定區域 / 教育' }
+                ],
+                engines: ['E2', 'E10', 'E11', 'E8'],
+                demos: [
+                    { eid: 'E2', label: 'Body 1 — 造成傷害', labelEn: 'Body 1 — Cause Harm', text: 'It damages <b>children\'s respiratory health</b> when passive smoking is permitted in public spaces, leading to higher rates of <b>asthma and lung disease</b> among non-smokers.', textZh: '當公共場所允許吸菸時，會傷害<b>兒童的呼吸健康</b>，導致非吸菸者羅患<b>氣嗘和肺病</b>的比例更高。' },
+                    { eid: 'E11', label: 'Body 2 — 反方觀點', labelEn: 'Body 2 — Counter Argument', text: 'The opposing view argues that <b>a smoking ban infringes on personal freedom</b>, but this overlooks the fact that <b>one person\'s right to smoke ends where another\'s right to breathe begins</b>.', textZh: '反方認為<b>禁菸侵犯個人自由</b>，但這忽略了<b>一個人吸菸的權利止於另一個人呼吸的權利</b>。' },
+                    { eid: 'E10', label: 'Conclusion — 折衷平衡', labelEn: 'Conclusion — Balanced View', text: 'Rather than an <b>outright ban</b> that alienates smokers, a balanced approach would be to <b>designate smoking zones</b> while implementing strict <b>legislation</b> protecting smoke-free areas.', textZh: '與其<b>全面禁止</b>而疏遠吸菸者，不如採取折衷方案：<b>劃定吸菸區</b>並實施嚴格<b>立法</b>保護無菸區域。' },
+                    { eid: 'E8', label: 'Extra — 政府必須', labelEn: 'Extra — Gov Must Act', text: 'The government must <b>enforce clear zoning laws</b> and fund <b>anti-smoking education campaigns</b> to reduce dependence without punishing individual choice.', textZh: '政府必須<b>執行明確的分區法律</b>並資助<b>反吸菸教育活動</b>，在不懲罰個人選擇的情況下減少依賴。' }
+                ]
+            },
+            {
+                id: 'C2', icon: '🤖', name: '科技的雙面刃', en: 'Progress vs Risk',
+                keywords: ['technology', 'AI', 'robot', 'automation', 'computer', 'smartphone', 'internet', 'digital', 'online', 'app', 'data', 'privacy', 'replace', 'job'],
+                coreQ: 'Some images and videos online are created by AI. What are the advantages and disadvantages?',
+                args: [
+                    { dir: '科技利大', dirEn: 'Tech benefits', text: '提升生產力、醫療水準、教育機會（尤其偏遠地區）', textEn: 'Boosts productivity, healthcare standards, and education access (especially in remote areas)' },
+                    { dir: '科技利大', dirEn: 'Tech benefits', text: '創造新型工作，雖取代舊工作但淨增就業', textEn: 'Creates new jobs; although old jobs are replaced, net employment increases' },
+                    { dir: '科技害大', dirEn: 'Tech harms', text: '社交技能下降、人際關係表面化', textEn: 'Declines in social skills and superficial human relationships' },
+                    { dir: '科技害大', dirEn: 'Tech harms', text: '增加網路犯罪、隱私侵害、假訊息散播', textEn: 'Increases cybercrime, privacy invasion, and misinformation' },
+                    { dir: '中立折衷', dirEn: 'Balanced', text: '科技本身中立，關鍵在於如何監管與教育使用者', textEn: 'Technology is neutral; the key lies in regulation and user education' }
+                ],
+                vocab: [
+                    { slot: '{科技形式}', slotEn: '{Tech forms}', words: 'AI / automation / algorithms / machine learning / robots', wordsZh: '人工智慧 / 自動化 / 演算法 / 機器學習 / 機器人' },
+                    { slot: '{正面效益}', slotEn: '{Benefits}', words: 'efficiency / productivity / accessibility / innovation', wordsZh: '效率 / 生產力 / 可及性 / 創新' },
+                    { slot: '{就業影響}', slotEn: '{Job impact}', words: 'job creation / unemployment / skills mismatch / retraining', wordsZh: '創造就業 / 失業 / 技能錯配 / 再培訓' },
+                    { slot: '{受害群體}', slotEn: '{Affected groups}', words: 'low-skilled workers / journalists / designers', wordsZh: '低技能勞工 / 記者 / 設計師' },
+                    { slot: '{安全/隱私}', slotEn: '{Security/Privacy}', words: 'data privacy / surveillance / personal information / cybercrime', wordsZh: '資料隱私 / 監控 / 個人資訊 / 網路犯罪' },
+                    { slot: '{解決方案}', slotEn: '{Solutions}', words: 'digital literacy / retraining / regulation / ethical guidelines', wordsZh: '數位素養 / 再培訓 / 監管 / 倫理準則' }
+                ],
+                engines: ['E1', 'E2', 'E5', 'E10'],
+                demos: [
+                    { eid: 'E1', label: 'Body 1（優點）— 改善生活', labelEn: 'Body 1 (Pros) — Improve Life', text: 'AI-generated content makes <b>creative professionals\' work</b> more <b>efficient</b> because they can prototype designs <b>in hours rather than weeks</b>.', textZh: 'AI 生成內容讓<b>創意專業人士的工作</b>更<b>高效</b>，因為他們可以在<b>幾小時而非幾週內</b>完成設計原型。' },
+                    { eid: 'E2', label: 'Body 2（缺點）— 造成傷害', labelEn: 'Body 2 (Cons) — Cause Harm', text: 'It damages <b>workers\' livelihoods</b> when AI tools replace roles in <b>journalism, graphic design, and video production</b>, leading to <b>structural unemployment</b>.', textZh: '當 AI 工具取代<b>新聞、平面設計和影片製作</b>的工作時，會傷害<b>勞工的生計</b>，導致<b>結構性失業</b>。' },
+                    { eid: 'E5', label: '補充 — 如果不…', labelEn: 'Extra — Without...Then...', text: 'Without <b>investment in digital retraining</b>, we face <b>mass technological unemployment</b> that disproportionately harms <b>low-income workers</b>.', textZh: '如果不<b>投資數位再培訓</b>，我們將面臨<b>大規模技術性失業</b>，不成比例地傷害<b>低收入勞工</b>。' },
+                    { eid: 'E10', label: 'Conclusion — 折衷平衡', labelEn: 'Conclusion — Balanced View', text: 'Rather than fearing or blindly embracing AI, a balanced approach would be to <b>regulate its use ethically</b> while <b>funding digital literacy programmes</b>.', textZh: '與其恐懼或盲目擁抱 AI，不如採取折衷方案：<b>以倫理方式監管其使用</b>，同時<b>資助數位素養計畫</b>。' }
+                ]
+            },
+            {
+                id: 'C3', icon: '🏫', name: '教育的目的與方法', en: 'Skills vs Knowledge',
+                keywords: ['education', 'school', 'teacher', 'student', 'university', 'exam', 'homework', 'curriculum', 'parent', 'academic', 'subject', 'learn', 'study', 'discipline', 'competition', 'cooperation'],
+                coreQ: 'Some think schools should teach children right from wrong; others think this is the parents\' responsibility. Discuss.',
+                args: [
+                    { dir: '學術知識派', dirEn: 'Academic focus', text: '基礎學科（數學、語言、科學）是一切能力的根基', textEn: 'Core subjects (maths, languages, sciences) are the foundation of all skills' },
+                    { dir: '軟實力派', dirEn: 'Soft skills', text: '溝通、批判思維、協作才是職場真正需要的', textEn: 'Communication, critical thinking, and collaboration are what the workplace truly needs' },
+                    { dir: '家庭責任派', dirEn: 'Family duty', text: '父母是孩子品格的第一個老師，學校無法取代家庭', textEn: 'Parents are the first teachers of character; schools cannot replace the family' },
+                    { dir: '學校責任派', dirEn: 'School duty', text: '學校系統化教育，能給所有兒童平等機會', textEn: 'Systematic school education gives all children equal opportunities' },
+                    { dir: '中立', dirEn: 'Balanced', text: '家庭與學校應合作：家庭塑造價值，學校強化與系統化', textEn: 'Family and school should collaborate: family shapes values, school reinforces and systematises' }
+                ],
+                vocab: [
+                    { slot: '{技能類型}', slotEn: '{Skill types}', words: 'critical thinking / ethical reasoning / practical skills / soft skills', wordsZh: '批判思維 / 倫理推理 / 實用技能 / 軟技能' },
+                    { slot: '{學術科目}', slotEn: '{Subjects}', words: 'mathematics / sciences / languages / history / arts', wordsZh: '數學 / 科學 / 語言 / 歷史 / 藝術' },
+                    { slot: '{考試制度}', slotEn: '{Exam system}', words: 'standardised tests / exams / grades / academic pressure', wordsZh: '標準化測驗 / 考試 / 成績 / 學業壓力' },
+                    { slot: '{學校角色}', slotEn: '{School role}', words: 'schools / teachers / educators / curriculum', wordsZh: '學校 / 老師 / 教育者 / 課程' },
+                    { slot: '{家庭角色}', slotEn: '{Family role}', words: 'parents / guardians / family / home environment', wordsZh: '父母 / 監護人 / 家庭 / 家庭環境' },
+                    { slot: '{學生群體}', slotEn: '{Students}', words: 'students / children / young learners / teenagers', wordsZh: '學生 / 兒童 / 年輕學習者 / 青少年' }
+                ],
+                engines: ['E9', 'E10', 'E11'],
+                demos: [
+                    { eid: 'E9', label: 'Body 1 — 學校應該', labelEn: 'Body 1 — Schools Should', text: 'Schools should teach <b>ethical reasoning and conflict resolution</b> so that students can navigate disagreements <b>without resorting to dishonesty or aggression</b>.', textZh: '學校應該教導<b>倫理推理和衝突解決</b>，讓學生能夠<b>不透過欺騙或攻擊</b>來處理分歧。' },
+                    { eid: 'E11', label: 'Body 2 — 反方觀點', labelEn: 'Body 2 — Counter Argument', text: 'The opposing view argues that <b>moral education belongs in the home</b>, but this overlooks that <b>many students lack stable home environments</b>.', textZh: '反方認為<b>品德教育屬於家庭</b>，但這忽略了<b>許多學生缺乏穩定的家庭環境</b>。' },
+                    { eid: 'E10', label: 'Conclusion — 折衷', labelEn: 'Conclusion — Balanced View', text: 'Rather than placing full responsibility on either schools or families alone, a balanced approach would be for <b>both to collaborate</b>.', textZh: '與其將全部責任放在學校或家庭單方，不如採取折衷方案：<b>雙方合作</b>。' }
+                ]
+            },
+            {
+                id: 'C4', icon: '💼', name: '工作、成功與金錢', en: 'Passion vs Salary',
+                keywords: ['work', 'job', 'salary', 'money', 'career', 'success', 'income', 'remote', 'passion', 'employee', 'business', 'company', 'CEO', 'debt', 'spend'],
+                coreQ: 'Some people do work they love; others work solely for money. Discuss both sides.',
+                args: [
+                    { dir: '薪資優先', dirEn: 'Salary first', text: '金錢提供安全感，讓家庭生活穩定，是基本需求', textEn: 'Money provides security, stabilises family life, and is a basic need' },
+                    { dir: '熱情優先', dirEn: 'Passion first', text: '做有意義的工作讓人更快樂，長期來看反而更成功', textEn: 'Meaningful work leads to greater happiness and long-term success' },
+                    { dir: '努力決定論', dirEn: 'Effort matters', text: '努力、自律是成功最可控的因素', textEn: 'Hard work and self-discipline are the most controllable factors of success' },
+                    { dir: '結構決定論', dirEn: 'Structural factors', text: '出身、人脈、運氣等系統性因素影響成功機率更大', textEn: 'Background, connections, and luck have a greater impact on success' },
+                    { dir: '中立', dirEn: 'Balanced', text: '理想路徑是把熱情發展成可營利的技能', textEn: 'The ideal path is to develop passion into a profitable skill' }
+                ],
+                vocab: [
+                    { slot: '{薪資/金錢}', slotEn: '{Salary/Money}', words: 'salary / income / financial security / wages', wordsZh: '薪資 / 收入 / 財務安全 / 工資' },
+                    { slot: '{工作意義}', slotEn: '{Job meaning}', words: 'passion / purpose / job satisfaction / fulfilment', wordsZh: '熱情 / 目標 / 工作滿足感 / 成就感' },
+                    { slot: '{心理影響}', slotEn: '{Mental impact}', words: 'burnout / stress / mental health / wellbeing', wordsZh: '倦怠 / 壓力 / 心理健康 / 幸福感' },
+                    { slot: '{成功指標}', slotEn: '{Success metrics}', words: 'career advancement / productivity / innovation', wordsZh: '職業晉升 / 生產力 / 創新' },
+                    { slot: '{社會不平等}', slotEn: '{Inequality}', words: 'income gap / wage inequality / class divide / privilege', wordsZh: '收入差距 / 薪資不平等 / 階級分化 / 特權' }
+                ],
+                engines: ['E1', 'E2', 'E10'],
+                demos: [
+                    { eid: 'E1', label: 'Body 1（薪資）— 改善生活', labelEn: 'Body 1 (Salary) — Improve Life', text: 'A competitive <b>salary</b> makes <b>families\'</b> lives more <b>secure and stable</b> because they can afford <b>quality housing, healthcare, and education</b>.', textZh: '具競爭力的<b>薪資</b>讓<b>家庭</b>生活更<b>安全穩定</b>，因為他們負擔得起<b>優質住房、醫療和教育</b>。' },
+                    { eid: 'E2', label: 'Body 2（熱情）— 造成傷害', labelEn: 'Body 2 (Passion) — Cause Harm', text: 'It damages <b>workers\' mental health</b> when people spend decades in <b>unfulfilling but well-paid careers</b>, leading to chronic <b>burnout</b>.', textZh: '當人們花數十年從事<b>不滿足但高薪的職業</b>時，會傷害<b>勞工的心理健康</b>，導致慢性<b>倦怠</b>。' },
+                    { eid: 'E10', label: 'Conclusion — 折衷', labelEn: 'Conclusion — Balanced View', text: 'Rather than choosing between <b>passion</b> and <b>a paycheck</b>, the ideal path is to <b>develop passion into a marketable skill</b>.', textZh: '與其在<b>熱情</b>和<b>薪水</b>之間二擇一，理想路徑是<b>將熱情發展成可營利的技能</b>。' }
+                ]
+            },
+            {
+                id: 'C5', icon: '🌿', name: '環境、責任與永續', en: 'Short-term vs Long-term',
+                keywords: ['environment', 'climate', 'pollution', 'carbon', 'emission', 'energy', 'animal', 'species', 'extinct', 'transport', 'traffic', 'electric', 'fossil', 'recycle', 'nature'],
+                coreQ: 'Climate change is one of the biggest threats. What are the causes? What actions should be taken?',
+                args: [
+                    { dir: '政府優先', dirEn: 'Gov. priority', text: '個人行動規模太小，需要法規強制企業和國家改變', textEn: 'Individual actions are too small-scale; legislation must force corporations and nations to change' },
+                    { dir: '個人責任', dirEn: 'Personal duty', text: '消費者選擇驅動市場，每個人改變生活方式影響深遠', textEn: 'Consumer choices drive markets; individual lifestyle changes have far-reaching impacts' },
+                    { dir: '緊迫性', dirEn: 'Urgency', text: '氣候變遷是人類生存威脅，需要立即行動', textEn: 'Climate change is an existential threat requiring immediate action' },
+                    { dir: '經濟折衷', dirEn: 'Economic balance', text: '環保政策可同時創造綠色就業，不必犧牲經濟', textEn: 'Green policies can create green jobs without sacrificing the economy' },
+                    { dir: '技術解方', dirEn: 'Tech solutions', text: '再生能源、電動車等技術才是長期解決方案', textEn: 'Renewable energy, EVs, and other technologies are the long-term solutions' }
+                ],
+                vocab: [
+                    { slot: '{污染物}', slotEn: '{Pollutants}', words: 'carbon emissions / greenhouse gases / CO₂ / fossil fuels', wordsZh: '碳排放 / 溫室氣體 / 二氧化碳 / 化石燃料' },
+                    { slot: '{生態影響}', slotEn: '{Ecological impact}', words: 'biodiversity loss / habitat destruction / species extinction', wordsZh: '生物多樣性喪失 / 棲息地破壞 / 物種滅絕' },
+                    { slot: '{再生能源}', slotEn: '{Renewables}', words: 'solar power / wind energy / nuclear / clean energy / EVs', wordsZh: '太陽能 / 風能 / 核能 / 清潔能源 / 電動車' },
+                    { slot: '{政策工具}', slotEn: '{Policy tools}', words: 'carbon tax / international agreements / emissions targets', wordsZh: '碳稅 / 國際協議 / 排放目標' },
+                    { slot: '{個人行動}', slotEn: '{Personal actions}', words: 'recycling / reducing meat / public transport / energy saving', wordsZh: '回收 / 減少肉類 / 公共運輸 / 節能' }
+                ],
+                engines: ['E2', 'E5', 'E8', 'E10'],
+                demos: [
+                    { eid: 'E2', label: 'Body 1 — 造成傷害', labelEn: 'Body 1 — Cause Harm', text: 'It damages <b>entire ecosystems</b> when <b>fossil fuel consumption</b> releases billions of tonnes of <b>carbon emissions</b>, leading to <b>biodiversity loss</b>.', textZh: '當<b>化石燃料消耗</b>釋放數十億噸<b>碳排放</b>時，會傷害<b>整個生態系統</b>，導致<b>生物多樣性喪失</b>。' },
+                    { eid: 'E5', label: 'Body 2 — 如果不…', labelEn: 'Body 2 — Without...Then...', text: 'Without <b>binding international agreements</b>, we face <b>irreversible climate catastrophe</b> that threatens food security.', textZh: '如果沒有<b>有約束力的國際協議</b>，我們將面臨<b>不可逆轉的氣候災難</b>，威脅糧食安全。' },
+                    { eid: 'E8', label: 'Body 3 — 政府必須', labelEn: 'Body 3 — Gov Must Act', text: 'The government must <b>invest in renewable energy</b> and implement a <b>carbon tax</b> that makes fossil fuels uncompetitive.', textZh: '政府必須<b>投資再生能源</b>並實施<b>碳稅</b>，使化石燃料失去競爭力。' },
+                    { eid: 'E10', label: 'Conclusion — 折衷', labelEn: 'Conclusion — Balanced View', text: 'Rather than halting all economic activity, a balanced approach would be to <b>transition to green industries</b>.', textZh: '與其停止所有經濟活動，不如採取折衷方案：<b>轉型為綠色產業</b>。' }
+                ]
+            },
+            {
+                id: 'C6', icon: '👨‍👩‍👧', name: '家庭、兒童與成長', en: 'Protection vs Freedom',
+                keywords: ['child', 'parent', 'family', 'strict', 'freedom', 'obesity', 'screen', 'grandparent', 'childcare', 'discipline', 'elderly'],
+                coreQ: 'Some think parents should be strict; others think children need freedom. Discuss.',
+                args: [
+                    { dir: '保護論', dirEn: 'Protection', text: '兒童大腦未成熟，需要成人引導以避免長期傷害', textEn: 'Children\'s brains are immature; adult guidance is needed to prevent long-term harm' },
+                    { dir: '自主論', dirEn: 'Autonomy', text: '從錯誤中學習是人成長最有效的方式', textEn: 'Learning from mistakes is the most effective way to grow' },
+                    { dir: '嚴格管教派', dirEn: 'Strict discipline', text: '規律與紀律培養自制力和責任感', textEn: 'Routine and discipline cultivate self-control and responsibility' },
+                    { dir: '自由放養派', dirEn: 'Free-range', text: '過度控制壓抑創意和獨立思考', textEn: 'Excessive control suppresses creativity and independent thinking' },
+                    { dir: '折衷', dirEn: 'Balanced', text: '安全和倫理方面嚴格，自我表達和學習方面給空間', textEn: 'Strict on safety and ethics, flexible on self-expression and learning' }
+                ],
+                vocab: [
+                    { slot: '{管教方式}', slotEn: '{Discipline}', words: 'strict discipline / boundaries / rules / consequences', wordsZh: '嚴格管教 / 界限 / 規則 / 後果' },
+                    { slot: '{自主空間}', slotEn: '{Autonomy}', words: 'personal freedom / autonomy / independent decision-making', wordsZh: '個人自由 / 自主權 / 獨立決策' },
+                    { slot: '{心理影響}', slotEn: '{Mental impact}', words: 'self-esteem / anxiety / resilience / emotional intelligence', wordsZh: '自尊心 / 焦慮 / 韌性 / 情緒智商' },
+                    { slot: '{兒童發展}', slotEn: '{Child development}', words: 'brain development / character formation / social skills', wordsZh: '大腦發育 / 品格塑造 / 社交技能' },
+                    { slot: '{社會問題}', slotEn: '{Social issues}', words: 'childhood obesity / screen addiction / bullying', wordsZh: '兒童肥胖 / 螢幕成癮 / 霸凌' }
+                ],
+                engines: ['E2', 'E10', 'E11'],
+                demos: [
+                    { eid: 'E2', label: 'Body 1 — 造成傷害', labelEn: 'Body 1 — Cause Harm', text: 'It damages <b>children\'s development</b> when they are given <b>unrestricted freedom without boundaries</b>, leading to <b>poor impulse control</b>.', textZh: '當兒童被給予<b>沒有界限的無限自由</b>時，會傷害<b>兒童的發展</b>，導致<b>衝動控制能力不足</b>。' },
+                    { eid: 'E11', label: 'Body 2 — 反方觀點', labelEn: 'Body 2 — Counter Argument', text: 'The opposing view argues that <b>strict discipline builds character</b>, but this overlooks how excessive control <b>suppresses creativity</b>.', textZh: '反方認為<b>嚴格紀律塑造品格</b>，但這忽略了過度控制會<b>壓抑創造力</b>。' },
+                    { eid: 'E10', label: 'Conclusion — 折衷', labelEn: 'Conclusion — Balanced View', text: 'Rather than choosing between <b>rigid control</b> and <b>total freedom</b>, the most effective parenting combines <b>clear boundaries</b> with <b>autonomy</b>.', textZh: '與其在<b>嚴格控制</b>和<b>完全自由</b>之間選擇，最有效的教養方式是將<b>明確的界限</b>與<b>自主權</b>結合。' }
+                ]
+            },
+            {
+                id: 'C7', icon: '🏥', name: '健康與政府角色', en: 'Prevention vs Cure',
+                keywords: ['health', 'hospital', 'doctor', 'nurse', 'disease', 'obesity', 'diet', 'exercise', 'mental', 'sport', 'prevention', 'cure', 'medical'],
+                coreQ: 'The government should spend less money curing illnesses and more on preventing them. Agree?',
+                args: [
+                    { dir: '預防優先', dirEn: 'Prevention first', text: '預防疾病成本遠低於治療，且減少個人痛苦', textEn: 'Prevention costs far less than treatment and reduces personal suffering' },
+                    { dir: '治療優先', dirEn: 'Treatment first', text: '疾病發生時，政府必須提供救治，這是基本人權', textEn: 'When illness strikes, the government must provide treatment — it is a basic human right' },
+                    { dir: '公費醫療', dirEn: 'Public healthcare', text: '確保窮人也能獲得醫療，減少不平等', textEn: 'Ensure the poor also have access to healthcare, reducing inequality' },
+                    { dir: '生活方式論', dirEn: 'Lifestyle theory', text: '個人的飲食、運動選擇決定健康，政府只能教育不能強制', textEn: 'Personal diet and exercise choices determine health; government can only educate, not enforce' }
+                ],
+                vocab: [
+                    { slot: '{預防手段}', slotEn: '{Prevention}', words: 'health education / vaccination / anti-smoking campaigns', wordsZh: '健康教育 / 疫苗接種 / 反吸菸運動' },
+                    { slot: '{治療手段}', slotEn: '{Treatment}', words: 'hospitals / surgery / medication / emergency care', wordsZh: '醫院 / 手術 / 藥物 / 急診' },
+                    { slot: '{健康問題}', slotEn: '{Health issues}', words: 'obesity / diabetes / heart disease / mental illness', wordsZh: '肥胖 / 糖尿病 / 心臟病 / 精神疾病' },
+                    { slot: '{成本}', slotEn: '{Costs}', words: 'healthcare budget / insurance premiums / taxpayer money', wordsZh: '醫療預算 / 保險費 / 納稅人的錢' },
+                    { slot: '{個人行為}', slotEn: '{Personal behaviour}', words: 'diet / exercise / smoking / alcohol / sedentary lifestyle', wordsZh: '飲食 / 運動 / 吸菸 / 飲酒 / 久坐生活' }
+                ],
+                engines: ['E3', 'E4', 'E8'],
+                demos: [
+                    { eid: 'E4', label: 'Body 1 — 如果…就會…', labelEn: 'Body 1 — If...Then...', text: 'If governments <b>invest in anti-obesity campaigns</b>, rates of <b>diabetes and heart disease will decline</b> — saving billions in <b>treatment costs</b>.', textZh: '如果政府<b>投資反肥胖運動</b>，<b>糖尿病和心臟病的比率將會下降</b>——節省數十億的<b>治療費用</b>。' },
+                    { eid: 'E3', label: 'Body 2 — 太貴了', labelEn: 'Body 2 — Too Expensive', text: 'It is too expensive for <b>the public healthcare system</b> when reactive treatment consumes the majority of the budget.', textZh: '當被動治療消耗大部分預算時，對<b>公共醫療系統</b>來說太貴了。' },
+                    { eid: 'E8', label: 'Conclusion — 政府必須', labelEn: 'Conclusion — Gov Must Act', text: 'The government must <b>fund public health education</b> and <b>regulate unhealthy food marketing</b> to children.', textZh: '政府必須<b>資助公共健康教育</b>並<b>監管不健康食品行銷</b>以保護兒童。' }
+                ]
+            },
+            {
+                id: 'C8', icon: '💰', name: '貧富差距與社會公平', en: 'Equality vs Efficiency',
+                keywords: ['rich', 'poor', 'gap', 'inequality', 'wealth', 'poverty', 'aid', 'tax', 'homeless', 'wage'],
+                coreQ: 'Reducing the income gap can lead to a happier society. To what extent do you agree?',
+                args: [
+                    { dir: '平等優先', dirEn: 'Equality first', text: '貧富差距破壞社會凝聚力，增加犯罪率和不滿情緒', textEn: 'The wealth gap erodes social cohesion and increases crime and resentment' },
+                    { dir: '效率優先', dirEn: 'Efficiency first', text: '貧富分化激勵努力，徵高稅會減少投資和創新', textEn: 'Wealth disparity incentivises effort; high taxes reduce investment and innovation' },
+                    { dir: '富國責任', dirEn: 'Rich nations\' duty', text: '發達國家從全球化獲益，有道義幫助貧窮國家', textEn: 'Developed nations benefit from globalisation and have a moral duty to help poorer countries' },
+                    { dir: '自主發展', dirEn: 'Self-reliance', text: '外援可能造成依賴，最好的幫助是技術轉移和公平貿易', textEn: 'Foreign aid can create dependency; the best help is technology transfer and fair trade' }
+                ],
+                vocab: [
+                    { slot: '{不平等數據}', slotEn: '{Inequality data}', words: 'the richest 1% / wealth concentration / income disparity', wordsZh: '最富有的1% / 財富集中 / 收入差距' },
+                    { slot: '{社會影響}', slotEn: '{Social impact}', words: 'social cohesion / crime rates / public trust / class division', wordsZh: '社會凝聚力 / 犯罪率 / 公眾信任 / 階級分化' },
+                    { slot: '{政策工具}', slotEn: '{Policy tools}', words: 'progressive taxation / universal basic income / social mobility', wordsZh: '累進稅 / 全民基本收入 / 社會流動性' },
+                    { slot: '{道德論點}', slotEn: '{Moral arguments}', words: 'social justice / equal opportunity / human dignity / fairness', wordsZh: '社會正義 / 機會平等 / 人性尊嚴 / 公平' }
+                ],
+                engines: ['E7', 'E8', 'E10'],
+                demos: [
+                    { eid: 'E7', label: 'Body 1 — 統計顯示', labelEn: 'Body 1 — Statistics Show', text: 'Statistics show the <b>top 1% own nearly half of global wealth</b> — a disparity that fuels <b>social resentment</b> and declining <b>public trust</b>.', textZh: '統計顯示<b>最富有1%擁有全球近一半的財富</b>——這種差距加劇了<b>社會不滿</b>和<b>公眾信任</b>的下降。' },
+                    { eid: 'E8', label: 'Body 2 — 政府必須', labelEn: 'Body 2 — Gov Must Act', text: 'The government must <b>levy progressive taxation</b> and <b>fund social mobility programmes</b>.', textZh: '政府必須<b>征收累進稅</b>並<b>資助社會流動計畫</b>。' },
+                    { eid: 'E10', label: 'Conclusion — 折衷', labelEn: 'Conclusion — Balanced View', text: 'Rather than <b>eliminating all wealth differences</b>, a balanced approach is to ensure a <b>basic floor</b> of housing, healthcare, and education.', textZh: '與其<b>消除所有財富差異</b>，不如採取折衷方案：確保住房、醫療和教育的<b>基本保障</b>。' }
+                ]
+            },
+            {
+                id: 'C9', icon: '🌍', name: '全球化與文化認同', en: 'Global vs Local',
+                keywords: ['culture', 'globalisation', 'tourism', 'travel', 'language', 'tradition', 'heritage', 'identity', 'museum', 'national', 'local', 'foreign'],
+                coreQ: 'Societies are becoming more alike due to globalisation. Some fear total loss of cultural identity. Agree?',
+                args: [
+                    { dir: '全球化利', dirEn: 'Pro-globalisation', text: '交流促進相互理解、科技轉移、貿易繁榮', textEn: 'Exchange promotes mutual understanding, technology transfer, and trade prosperity' },
+                    { dir: '全球化弊', dirEn: 'Anti-globalisation', text: '同質化使文化特色消失，地方語言和傳統消亡', textEn: 'Homogenisation erases cultural uniqueness and local languages and traditions' },
+                    { dir: '觀光利', dirEn: 'Tourism benefits', text: '帶動就業，提升基礎設施，增加政府收入', textEn: 'Drives employment, improves infrastructure, and boosts government revenue' },
+                    { dir: '觀光弊', dirEn: 'Tourism harms', text: '破壞自然環境，使在地文化商業化', textEn: 'Damages the natural environment and commercialises local culture' },
+                    { dir: '折衷', dirEn: 'Balanced', text: '擁抱國際交流，同時主動保護在地文化', textEn: 'Embrace international exchange while actively protecting local culture' }
+                ],
+                vocab: [
+                    { slot: '{文化認同}', slotEn: '{Cultural identity}', words: 'cultural identity / heritage / traditions / indigenous languages', wordsZh: '文化認同 / 文化遺產 / 傳統 / 原住民語言' },
+                    { slot: '{文化失落}', slotEn: '{Cultural loss}', words: 'homogenisation / cultural erosion / language extinction', wordsZh: '同質化 / 文化侵蝕 / 語言滅絕' },
+                    { slot: '{全球化利益}', slotEn: '{Global benefits}', words: 'trade / technology transfer / mutual understanding', wordsZh: '貿易 / 技術轉移 / 相互理解' },
+                    { slot: '{旅遊影響}', slotEn: '{Tourism impact}', words: 'over-tourism / commercialisation / authentic vs staged culture', wordsZh: '過度旅遊 / 商業化 / 真實 vs 表演文化' },
+                    { slot: '{保護手段}', slotEn: '{Preservation}', words: 'cultural preservation laws / arts funding / heritage sites', wordsZh: '文化保護法 / 藝術資助 / 文化遺產地' }
+                ],
+                engines: ['E2', 'E5', 'E10', 'E11'],
+                demos: [
+                    { eid: 'E2', label: 'Body 1 — 造成傷害', labelEn: 'Body 1 — Cause Harm', text: 'It damages <b>cultural identity</b> when global corporations replace <b>local businesses and traditions</b> with standardised products.', textZh: '當全球企業以標準化產品取代<b>當地企業和傳統</b>時，會傷害<b>文化認同</b>。' },
+                    { eid: 'E11', label: 'Body 2 — 反方觀點', labelEn: 'Body 2 — Counter Argument', text: 'The opposing view argues that <b>cultural exchange enriches societies</b>, but this overlooks how <b>unequal power dynamics</b> mean weaker cultures absorb dominant ones.', textZh: '反方認為<b>文化交流豐富了社會</b>，但這忽略了<b>不平等的權力動態</b>使弱勢文化被強勢文化同化。' },
+                    { eid: 'E5', label: 'Body 3 — 如果不…', labelEn: 'Body 3 — Without...Then...', text: 'Without <b>active cultural preservation policies</b>, we face the <b>permanent erasure of cultural diversity</b>.', textZh: '如果沒有<b>積極的文化保護政策</b>，我們將面臨<b>文化多樣性的永久消失</b>。' },
+                    { eid: 'E10', label: 'Conclusion — 折衷', labelEn: 'Conclusion — Balanced View', text: 'Rather than resisting globalisation entirely, a balanced approach is to <b>embrace exchange</b> while <b>actively protecting local heritage</b>.', textZh: '與其完全抵制全球化，不如採取折衷方案：<b>擁抱交流</b>同時<b>積極保護當地文化遺產</b>。' }
+                ]
+            },
+            {
+                id: 'C10', icon: '📱', name: '媒體、網路與資訊', en: 'Truth vs Influence',
+                keywords: ['media', 'news', 'newspaper', 'advertising', 'celebrity', 'influencer', 'social media', 'fake', 'online', 'streaming', 'Netflix', 'TV', 'fame', 'privacy'],
+                coreQ: 'Some get news from the internet; others do not trust online news. Discuss both sides.',
+                args: [
+                    { dir: '媒體利', dirEn: 'Media benefits', text: '即時資訊讓公眾更有知識武裝，更能問責政府', textEn: 'Real-time information empowers the public with knowledge and government accountability' },
+                    { dir: '媒體弊', dirEn: 'Media harms', text: '篩選氣泡使人只聽信自己已有的偏見', textEn: 'Filter bubbles make people only listen to their existing biases' },
+                    { dir: '社群媒體利', dirEn: 'Social media +', text: '讓偏遠地區、邊緣族群有平台發聲', textEn: 'Gives remote areas and marginalised groups a platform to be heard' },
+                    { dir: '社群媒體弊', dirEn: 'Social media −', text: '假訊息、網路霸凌、螢幕成癮影響心理健康', textEn: 'Misinformation, cyberbullying, and screen addiction harm mental health' },
+                    { dir: '廣告影響', dirEn: 'Ad influence', text: '廣告製造不必要慾望，促進過度消費', textEn: 'Advertising creates unnecessary desires and promotes overconsumption' }
+                ],
+                vocab: [
+                    { slot: '{媒體形式}', slotEn: '{Media types}', words: 'social media / streaming / online news / podcasts / influencers', wordsZh: '社群媒體 / 串流 / 線上新聞 / 播客 / 網紅' },
+                    { slot: '{資訊問題}', slotEn: '{Info issues}', words: 'misinformation / fake news / filter bubbles / echo chambers', wordsZh: '假訊息 / 假新聞 / 過濾氣泡 / 同溫層' },
+                    { slot: '{心理影響}', slotEn: '{Mental impact}', words: 'anxiety / screen addiction / low self-esteem / loneliness', wordsZh: '焦慮 / 螢幕成癮 / 低自尊 / 孤獨' },
+                    { slot: '{廣告影響}', slotEn: '{Ad impact}', words: 'targeted advertising / consumerism / manipulated desires', wordsZh: '精準廣告 / 消費主義 / 操控慾望' },
+                    { slot: '{解決方案}', slotEn: '{Solutions}', words: 'media literacy / digital education / platform regulation', wordsZh: '媒體素養 / 數位教育 / 平台監管' }
+                ],
+                engines: ['E6', 'E8', 'E9', 'E10'],
+                demos: [
+                    { eid: 'E6', label: 'Body 1 — 我們經常看到', labelEn: 'Body 1 — We Often See', text: 'We often see <b>influencers promoting false health claims</b> — content algorithmically amplified to millions of <b>young people</b> who lack <b>media literacy</b>.', textZh: '我們經常看到<b>網紅推廣虛假健康聲明</b>——這些內容被演算法放大到數百萬缺乏<b>媒體素養</b>的<b>年輕人</b>。' },
+                    { eid: 'E8', label: 'Body 2 — 政府必須', labelEn: 'Body 2 — Gov Must Act', text: 'The government must <b>regulate social media platforms</b> — requiring <b>transparent labelling</b> of sponsored content.', textZh: '政府必須<b>監管社群媒體平台</b>——要求贊助內容進行<b>透明標示</b>。' },
+                    { eid: 'E9', label: 'Body 3 — 學校應該', labelEn: 'Body 3 — Schools Should', text: 'Schools should teach <b>media literacy</b> so students can <b>identify bias and verify sources</b>.', textZh: '學校應該教導<b>媒體素養</b>，讓學生能夠<b>辨識偏見並驗證來源</b>。' },
+                    { eid: 'E10', label: 'Conclusion — 折衷', labelEn: 'Conclusion — Balanced View', text: 'Rather than <b>censoring the internet</b>, a balanced approach combines <b>platform regulation</b> and <b>media literacy education</b>.', textZh: '與其<b>審查網路</b>，不如採取折衷方案：結合<b>平台監管</b>和<b>媒體素養教育</b>。' }
+                ]
+            },
+            {
+                id: 'C11', icon: '🎨', name: '藝術、文化與傳統', en: 'Value vs Cost',
+                keywords: ['art', 'museum', 'gallery', 'culture', 'history', 'tradition', 'creative', 'painting', 'music', 'literature', 'funding', 'heritage'],
+                coreQ: 'Government should spend more on the arts; others think funding should go to health and education. Discuss.',
+                args: [
+                    { dir: '藝術重要', dirEn: 'Arts matter', text: '藝術增強文化認同、促進創意、提升心理健康', textEn: 'Arts strengthen cultural identity, foster creativity, and improve mental health' },
+                    { dir: '藝術其次', dirEn: 'Arts secondary', text: '政府資源應優先用於醫療、教育等基本需求', textEn: 'Government resources should prioritise healthcare, education, and basic needs' },
+                    { dir: '保存傳統', dirEn: 'Preserve tradition', text: '傳統文化是民族智慧的結晶，一旦失去無法恢復', textEn: 'Traditional culture is the crystallisation of a nation\'s wisdom; once lost, it cannot be recovered' },
+                    { dir: '歡迎演化', dirEn: 'Embrace evolution', text: '文化自然演進才有活力，強行保存反而令其博物館化', textEn: 'Culture thrives through natural evolution; forced preservation turns it into a museum piece' }
+                ],
+                vocab: [
+                    { slot: '{藝術形式}', slotEn: '{Art forms}', words: 'museums / galleries / theatre / film / music / public art', wordsZh: '博物館 / 畫廊 / 劇場 / 電影 / 音樂 / 公共藝術' },
+                    { slot: '{藝術價值}', slotEn: '{Art value}', words: 'cultural identity / creative expression / emotional wellbeing', wordsZh: '文化認同 / 創意表達 / 情緒幸福' },
+                    { slot: '{經濟貢獻}', slotEn: '{Economic value}', words: 'creative industries / tourism revenue / GDP / employment', wordsZh: '創意產業 / 旅遊收入 / GDP / 就業' },
+                    { slot: '{資源競爭}', slotEn: '{Competing needs}', words: 'healthcare / education / infrastructure / housing', wordsZh: '醫療 / 教育 / 基礎設施 / 住房' }
+                ],
+                engines: ['E1', 'E3', 'E10', 'E11'],
+                demos: [
+                    { eid: 'E1', label: 'Body 1 — 改善生活', labelEn: 'Body 1 — Improve Life', text: 'Public arts funding makes <b>communities\' lives</b> more <b>culturally rich</b> because citizens can access <b>museums, theatre, and music</b> that build <b>social cohesion</b>.', textZh: '公共藝術資助讓<b>社區生活</b>更<b>文化豐富</b>，因為市民能接觸<b>博物館、劇場和音樂</b>，建立<b>社會凝聚力</b>。' },
+                    { eid: 'E3', label: 'Body 2 — 太貴了（反轉）', labelEn: 'Body 2 — Too Expensive (Reversed)', text: 'It is too expensive to <b>defund arts</b> when <b>creative industries generate billions</b> in export revenue and tourism.', textZh: '當<b>創意產業創造數十億</b>出口收入和旅遊收益時，<b>削減藝術資助</b>反而太貴了。' },
+                    { eid: 'E11', label: 'Body 反方', labelEn: 'Body — Counter', text: 'The opposing view argues that <b>limited funds should prioritise healthcare</b>, but this overlooks that <b>arts are documented tools for mental health</b>.', textZh: '反方認為<b>有限資金應優先用於醫療</b>，但這忽略了<b>藝術是証實有效的心理健康工具</b>。' },
+                    { eid: 'E10', label: 'Conclusion — 折衷', labelEn: 'Conclusion — Balanced View', text: 'Rather than defunding arts entirely, a balanced approach is a <b>mixed funding model</b> — government grants plus <b>private sponsorship</b>.', textZh: '與其完全削減藝術資助，不如採取<b>混合資助模式</b>——政府補助加上<b>民間贊助</b>。' }
+                ]
+            },
+            {
+                id: 'C12', icon: '🚔', name: '犯罪、法律與道德', en: 'Punishment vs Reform',
+                keywords: ['crime', 'prison', 'punishment', 'criminal', 'law', 'police', 'offend', 'reoffend', 'justice', 'sentence', 'violence', 'drugs', 'teenager'],
+                coreQ: 'Too many criminals leave prison only to reoffend. Why? What measures can be introduced?',
+                args: [
+                    { dir: '懲罰威嚇', dirEn: 'Deterrence', text: '嚴厲懲罰能有效抑止犯罪，維護社會秩序', textEn: 'Harsh punishment effectively deters crime and maintains social order' },
+                    { dir: '更生改造', dirEn: 'Rehabilitation', text: '監獄若只懲罰不改造，出獄後再犯率高', textEn: 'Prisons that only punish without reforming lead to high reoffending rates' },
+                    { dir: '環境決定論', dirEn: 'Environmental factors', text: '貧窮、教育不平等是犯罪的根源，應從源頭解決', textEn: 'Poverty and educational inequality are root causes of crime; address them at the source' },
+                    { dir: '個人責任論', dirEn: 'Personal responsibility', text: '同樣環境下有人不犯罪，個人選擇不可推卸', textEn: 'Some people in the same environment do not commit crimes; personal choice cannot be dismissed' },
+                    { dir: '科技協助', dirEn: 'Tech-assisted', text: '監控、AI 分析能有效預防犯罪，但需平衡隱私', textEn: 'Surveillance and AI analysis can prevent crime effectively, but privacy must be balanced' }
+                ],
+                vocab: [
+                    { slot: '{刑事司法}', slotEn: '{Criminal justice}', words: 'the justice system / prisons / courts / sentencing', wordsZh: '司法系統 / 監獄 / 法院 / 判刑' },
+                    { slot: '{懲罰手段}', slotEn: '{Punishment}', words: 'imprisonment / fines / community service / rehabilitation', wordsZh: '監禁 / 罰款 / 社區服務 / 更生' },
+                    { slot: '{更生措施}', slotEn: '{Rehabilitation}', words: 'vocational training / counselling / education programmes', wordsZh: '職業培訓 / 輔導 / 教育計劃' },
+                    { slot: '{犯罪根源}', slotEn: '{Crime roots}', words: 'poverty / unemployment / lack of education / drug addiction', wordsZh: '貧窮 / 失業 / 缺乏教育 / 毒品成癮' },
+                    { slot: '{再犯問題}', slotEn: '{Reoffending}', words: 'reoffending / recidivism / revolving door prisons', wordsZh: '再犯 / 累犯 / 旋轉門監獄' }
+                ],
+                engines: ['E6', 'E8', 'E11'],
+                demos: [
+                    { eid: 'E6', label: 'Body 1 — 我們經常看到', labelEn: 'Body 1 — We Often See', text: 'We often see <b>ex-prisoners reoffending within months</b> — not because they choose crime, but because they exit prison <b>without housing, employment, or mental health support</b>.', textZh: '我們經常看到<b>前囚犯在幾個月內再犯</b>——不是因為他們選擇犯罪，而是因為他們出獄時<b>沒有住房、工作或心理健康支持</b>。' },
+                    { eid: 'E2', label: 'Body 2 — 造成傷害', labelEn: 'Body 2 — Cause Harm', text: 'It damages <b>long-term public safety</b> when <b>rehabilitation remains underfunded</b>, leading to a <b>revolving-door prison system</b>.', textZh: '當<b>更生計畫持續資金不足</b>時，會傷害<b>長期公共安全</b>，導致<b>旋轉門監獄系統</b>。' },
+                    { eid: 'E11', label: 'Body 3 — 反方觀點', labelEn: 'Body 3 — Counter Argument', text: 'The opposing view argues that <b>criminals deserve punishment, not sympathy</b>, but this overlooks that <b>most offenders come from poverty and neglect</b>.', textZh: '反方認為<b>罪犯應該受罰而非同情</b>，但這忽略了<b>大多數罪犯來自貧窮和忽視</b>。' },
+                    { eid: 'E8', label: 'Conclusion — 政府必須', labelEn: 'Conclusion — Gov Must Act', text: 'The government must <b>fund robust rehabilitation programmes</b> and <b>address root causes</b> such as poverty and educational inequality.', textZh: '政府必須<b>資助健全的更生計畫</b>並<b>解決根本原因</b>，如貧窮和教育不平等。' }
+                ]
+            }
+        ];
+
+        const ENGINES = {
+            E1: { name: '改善生活', nameEn: 'Improve Life', formula: '{X} makes {people\'s} life more {adj} because they can {benefit}.' },
+            E2: { name: '造成傷害', nameEn: 'Cause Harm', formula: 'It damages {group\'s aspect} when {cause}, leading to {negative consequence}.' },
+            E3: { name: '太貴了', nameEn: 'Too Expensive', formula: 'It is too expensive for {group} when {cost situation}, resulting in {negative outcome}.' },
+            E4: { name: '如果…就會…', nameEn: 'If...Then...', formula: 'If {positive action}, {beneficiary} will {positive result}.' },
+            E5: { name: '如果不…就會…', nameEn: 'Without...Then...', formula: 'Without {action}, we face {dire consequence}.' },
+            E6: { name: '我們經常看到', nameEn: 'We Often See', formula: 'We often see {observable phenomenon} — {context or irony}.' },
+            E7: { name: '統計顯示', nameEn: 'Statistics Show', formula: 'Statistics show {data point} — {implication}.' },
+            E8: { name: '政府必須', nameEn: 'Gov Must Act', formula: 'The government must {policy action} and {complement} to {outcome}.' },
+            E9: { name: '學校應該', nameEn: 'Schools Should', formula: 'Schools should teach {skill} so {students} can {application}.' },
+            E10: { name: '折衷平衡', nameEn: 'Balanced View', formula: 'Rather than {extreme A or B}, a balanced approach would be to {middle ground}.' },
+            E11: { name: '反方觀點', nameEn: 'Counter Argument', formula: 'The opposing view argues that {counter-argument}, but this overlooks {rebuttal}.' },
+            E12: { name: '具體舉例', nameEn: 'Specific Example', formula: 'For instance, in {country/context}, {specific example}, which demonstrates {point}.' }
+        };
+
+        // ============ STATE ============
+        let currentStep = 0;
+        let selectedCluster = null;
+        let selectedEngines = new Set();
+
+        // ============ LOGIC ============
+        function goStep(n) {
+            currentStep = n;
+            document.querySelectorAll('.panel').forEach((p, i) => {
+                p.classList.toggle('active', i === n);
+            });
+            document.querySelectorAll('.step-dot').forEach((d, i) => {
+                d.classList.remove('active');
+                if (i < n) d.classList.add('done');
+                else d.classList.remove('done');
+                if (i === n) d.classList.add('active');
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function analyzeQuestion() {
+            const q = document.getElementById('essayInput').value.trim().toLowerCase();
+            if (!q) { alert(t('alertNoQuestion')); return; }
+            // Score each cluster by keyword match
+            const scores = CLUSTERS.map((c, i) => {
+                let score = 0;
+                c.keywords.forEach(kw => { if (q.includes(kw)) score += 1; });
+                return { idx: i, score };
+            });
+            scores.sort((a, b) => b.score - a.score);
+            renderClusters(scores[0].score > 0 ? scores[0].idx : -1);
+            goStep(1);
+        }
+
+        function renderClusters(recommendedIdx) {
+            const grid = document.getElementById('clusterGrid');
+            grid.innerHTML = '';
+            CLUSTERS.forEach((c, i) => {
+                const div = document.createElement('div');
+                div.className = 'cluster-card' + (i === recommendedIdx ? ' selected' : '');
+                div.innerHTML = `<span class="icon">${c.icon}</span>
+      <div class="name">${c.id} ${currentLang === 'en' ? c.en : c.name}</div>
+      <div class="conflict">${currentLang === 'en' ? c.name : c.en}</div>
+      ${i === recommendedIdx ? `<span class="tag tag-green">${t('tagRecommend')}</span>` : ''}`;
+                div.onclick = () => selectCluster(i);
+                grid.appendChild(div);
+            });
+            if (recommendedIdx >= 0) selectCluster(recommendedIdx);
+            if (recommendedIdx < 0) {
+                document.getElementById('clusterHint').textContent = t('s1HintNoMatch');
+            }
+        }
+
+        function selectCluster(idx) {
+            selectedCluster = idx;
+            selectedEngines.clear();
+            document.querySelectorAll('.cluster-card').forEach((c, i) => {
+                c.classList.toggle('selected', i === idx);
+            });
+            document.getElementById('btnToStep2').disabled = false;
+            renderArguments();
+            renderVocab();
+            renderEngines();
+        }
+
+        function renderArguments() {
+            const c = CLUSTERS[selectedCluster];
+            const cName = currentLang === 'en' ? c.en : c.name;
+            document.getElementById('argTitle').textContent = `💡 ${c.icon} ${c.id} ${cName} — ${t('s2Title').replace('💡 ', '')}`;
+            let html = `<div class="card"><p style="color:var(--orange);font-size:.85rem;margin-bottom:.8rem">${t('argCoreQ')}${c.coreQ}</p>
+    <table class="arg-table"><tr><th>${t('argDirection')}</th><th>${t('argCoreArg')}</th></tr>`;
+            c.args.forEach(a => {
+                const dirLabel = currentLang === 'en' && a.dirEn ? a.dirEn : a.dir;
+                const argText = currentLang === 'en' && a.textEn ? a.textEn : a.text;
+                const color = a.dir.includes('折衷') || a.dir.includes('中立') || (a.dirEn && a.dirEn.toLowerCase().includes('balanced')) ? 'var(--orange)' : a.dir.includes('反') || a.dir.includes('害') || a.dir.includes('弊') || a.dir.includes('其次') || a.dir.includes('效率') || (a.dirEn && (a.dirEn.toLowerCase().includes('anti') || a.dirEn.toLowerCase().includes('harm') || a.dirEn.toLowerCase().includes('secondary'))) ? 'var(--red)' : 'var(--green)';
+                html += `<tr><td><span class="tag" style="background:${color}22;color:${color}">${dirLabel}</span></td><td>${argText}</td></tr>`;
+            });
+            html += '</table></div>';
+
+            // AI extra arguments (if available)
+            const aiArgs = currentLang === 'en' ? (c._aiArgsEn || c._aiArgsZh) : (c._aiArgsZh || c._aiArgsEn);
+            if (aiArgs && aiArgs.length > 0) {
+                html += '<div class="card" style="border-color:var(--accent);margin-top:.5rem">';
+                html += `<h3 style="color:var(--accent2);font-size:.9rem">${t('aiExtraTitle')}</h3>`;
+                html += `<table class="arg-table"><tr><th>${t('argSource')}</th><th>${t('argCoreArg')}</th></tr>`;
+                aiArgs.forEach(a => {
+                    html += `<tr><td><span class="tag tag-blue">AI</span></td><td>${a}</td></tr>`;
+                });
+                html += '</table></div>';
+            }
+
+            document.getElementById('argContent').innerHTML = html;
+        }
+
+        function renderVocab() {
+            const c = CLUSTERS[selectedCluster];
+            const cName = currentLang === 'en' ? c.en : c.name;
+            document.getElementById('vocabTitle').textContent = `📥 ${c.icon} ${c.id} — ${t('s3Title').replace('📥 ', '')}`;
+            let html = '<div class="card vocab-section">';
+            c.vocab.forEach(v => {
+                const slotLabel = currentLang === 'en' && v.slotEn ? v.slotEn : v.slot;
+                const wordsDisplay = currentLang === 'zh' && v.wordsZh ? v.wordsZh : v.words;
+                const wordsToCopy = v.words; // Always copy English words for IELTS use
+                html += `<div class="vocab-row">
+      <span class="vocab-label">${slotLabel}</span>
+      <span class="vocab-words" onclick="navigator.clipboard.writeText('${wordsToCopy.replace(/'/g, "\\'")}');this.style.color='var(--green)';setTimeout(()=>this.style.color='',800)" style="cursor:pointer" title="${t('vocabClickCopy')}">${wordsDisplay}</span>
+    </div>`;
+            });
+            html += '</div>';
+            document.getElementById('vocabContent').innerHTML = html;
+        }
+
+        function renderEngines() {
+            const c = CLUSTERS[selectedCluster];
+            const cName = currentLang === 'en' ? c.en : c.name;
+            document.getElementById('engineTitle').textContent = `⚡ ${c.icon} ${c.id} — ${t('s4Title').replace('⚡ ', '')}`;
+            let html = '';
+            // Show recommended engines first, then all others
+            const allEids = Object.keys(ENGINES);
+            const recommended = new Set(c.engines);
+            const sorted = [...allEids.filter(e => recommended.has(e)), ...allEids.filter(e => !recommended.has(e))];
+
+            sorted.forEach(eid => {
+                const eng = ENGINES[eid];
+                const engName = currentLang === 'en' && eng.nameEn ? eng.nameEn : eng.name;
+                const demo = c.demos?.find(d => d.eid === eid);
+                const isRec = recommended.has(eid);
+                // Use labelEn directly for clean translation
+                let demoHtml = '';
+                if (demo) {
+                    const demoLabel = currentLang === 'en' && demo.labelEn ? demo.labelEn : demo.label;
+                    const demoText = currentLang === 'zh' && demo.textZh ? demo.textZh : demo.text;
+                    demoHtml = `<div class="example"><b>${demoLabel}：</b><br>${demoText}</div>`;
+                }
+                html += `<div class="engine-card${selectedEngines.has(eid) ? ' selected' : ''}" id="eng-${eid}" onclick="toggleEngine('${eid}')">
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+        <span class="eid">${eid}</span>
+        <span style="font-weight:600">${engName}</span>
+        ${isRec ? `<span class="tag tag-green">${t('engineRecommend')}</span>` : ''}
+      </div>
+      <div class="formula">${eng.formula}</div>
+      ${demoHtml}
+    </div>`;
+            });
+            document.getElementById('engineContent').innerHTML = html;
+        }
+
+        function toggleEngine(eid) {
+            if (selectedEngines.has(eid)) selectedEngines.delete(eid);
+            else selectedEngines.add(eid);
+            document.getElementById('eng-' + eid).classList.toggle('selected');
+        }
+
+        function buildOutput(navigate = true) {
+            if (selectedEngines.size === 0) { if (navigate) alert(t('alertNoEngine')); return; }
+            const c = CLUSTERS[selectedCluster];
+            const q = document.getElementById('essayInput').value.trim();
+            const cName = currentLang === 'en' ? c.en : c.name;
+            let html = `<div class="output-box">
+    <button class="copy-btn" onclick="copyOutput()">${t('copyBtn')}</button>
+    <div id="outputText">
+    <p style="color:var(--dim);font-size:.82rem;margin-bottom:.8rem">${t('outputQuestion')}${q}</p>
+    <p style="color:var(--accent2);font-size:.82rem;margin-bottom:1rem">${c.icon} ${t('outputCluster')}${c.id} ${cName}</p>
+    <hr style="border-color:var(--border);margin-bottom:1rem">`;
+
+            let paraNum = 1;
+            selectedEngines.forEach(eid => {
+                const eng = ENGINES[eid];
+                const engName = currentLang === 'en' && eng.nameEn ? eng.nameEn : eng.name;
+                const demo = c.demos?.find(d => d.eid === eid);
+                // Use labelEn directly for clean translation
+                let demoLabel = '';
+                if (demo) {
+                    demoLabel = currentLang === 'en' && demo.labelEn ? demo.labelEn : demo.label;
+                }
+                html += `<p style="margin-bottom:.3rem"><b>¶${paraNum} — ${eid} ${engName}</b></p>
+    <p style="color:var(--orange);font-style:italic;margin-bottom:.3rem">${eng.formula}</p>`;
+                if (demo) {
+                    const demoText = currentLang === 'zh' && demo.textZh ? demo.textZh : demo.text;
+                    html += `<p style="color:var(--dim);font-size:.85rem;margin-bottom:1rem">💡 ${demoText}</p>`;
+                }
+                html += '<br>';
+                paraNum++;
+            });
+
+            html += `<hr style="border-color:var(--border);margin:1rem 0">
+    <p style="font-size:.85rem"><b>${t('outputVocabLabel')}</b></p>`;
+            c.vocab.forEach(v => {
+                const slotLabel = currentLang === 'en' && v.slotEn ? v.slotEn : v.slot;
+                const wordsDisplay = currentLang === 'zh' && v.wordsZh ? v.wordsZh : v.words;
+                html += `<p style="font-size:.82rem;color:var(--dim)">${slotLabel} → ${wordsDisplay}</p>`;
+            });
+            html += '</div></div>';
+
+            document.getElementById('outputContent').innerHTML = html;
+            if (navigate) goStep(5);
+        }
+
+        function copyOutput() {
+            const el = document.getElementById('outputText');
+            const text = el.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = el.parentElement.querySelector('.copy-btn');
+                btn.textContent = t('copied');
+                setTimeout(() => btn.textContent = t('copyBtn'), 1500);
+            });
+        }
+
+        // Step nav click
+        document.querySelectorAll('.step-dot').forEach(d => {
+            d.addEventListener('click', () => {
+                const step = parseInt(d.dataset.step);
+                if (step <= currentStep || (step === currentStep + 1)) goStep(step);
+            });
+        });
+
+        // ============ AI INTEGRATION (Kimi K2) ============
+        const AI_API_URL = 'https://api-ai.gitcode.com/v1/chat/completions';
+        const AI_MODEL = 'moonshotai/Kimi-K2-Instruct';
+
+        function getApiKey() {
+            return document.getElementById('apiKeyInput').value.trim();
+        }
+
+        async function verifyApiKey() {
+            const key = getApiKey();
+            if (!key) { alert(t('alertNoApiKeyShort')); return; }
+
+            const btn = document.getElementById('btnVerifyApi');
+            const statusEl = document.getElementById('apiStatus');
+            btn.disabled = true;
+            btn.textContent = t('apiVerifying');
+            statusEl.textContent = t('apiVerifying');
+            statusEl.className = 'api-status';
+
+            try {
+                const r = await fetch(AI_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
+                    body: JSON.stringify({
+                        model: AI_MODEL,
+                        messages: [{ role: 'user', content: 'Hi' }],
+                        stream: false,
+                        max_tokens: 1,
+                        temperature: 0
+                    })
+                });
+                if (r.ok) {
+                    statusEl.textContent = t('apiVerified');
+                    statusEl.className = 'api-status ok';
+                } else if (r.status === 401) {
+                    statusEl.textContent = t('apiInvalid');
+                    statusEl.className = 'api-status err';
+                } else {
+                    statusEl.textContent = t('apiError') + ` (${r.status})`;
+                    statusEl.className = 'api-status err';
+                }
+            } catch (e) {
+                statusEl.textContent = t('apiError');
+                statusEl.className = 'api-status err';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = t('btnVerify');
+            }
+        }
+
+        // Simplified → Traditional Chinese conversion for common IELTS vocab
+        function toTraditional(text) {
+            const map = {
+                // Common characters in IELTS topics
+                '认': '認', '为': '為', '经': '經', '济': '濟', '环': '環', '境': '境', '发': '發', '展': '展',
+                '问': '問', '题': '題', '关': '關', '于': '於', '学': '學', '习': '習', '应': '應', '该': '該',
+                '会': '會', '对': '對', '压': '壓', '种': '種', '进': '進', '与': '與', '个': '個', '这': '這',
+                '过': '過', '时': '時', '实': '實', '现': '現', '产': '產', '业': '業', '动': '動', '机': '機',
+                '能': '能', '论': '論', '证': '證', '据': '據', '单': '單', '独': '獨', '选': '選', '择': '擇',
+                '观': '觀', '点': '點', '极': '極', '积': '積', '结': '結', '构': '構', '长': '長', '远': '遠',
+                '导': '導', '致': '致', '减': '減', '少': '少', '增': '增', '强': '強', '广': '廣', '泛': '泛',
+                '须': '須', '义': '義', '责': '責', '任': '任', '权': '權', '利': '利', '制': '製', '规': '規',
+                '则': '則', '组': '組', '织': '織', '决': '決', '定': '定', '条': '條', '件': '件', '设': '設',
+                '计': '計', '标': '標', '准': '準', '评': '評', '估': '估', '质': '質', '量': '量', '创': '創',
+                '新': '新', '传': '傳', '统': '統', '文': '文', '化': '化', '历': '歷', '史': '史', '艺': '藝',
+                '术': '術', '沟': '溝', '通': '通', '达': '達', '开': '開', '放': '放', '竞': '競', '争': '爭',
+                '变': '變', '革': '革', '优': '優', '势': '勢', '资': '資', '源': '源', '矿': '礦', '运': '運',
+                '输': '輸', '贸': '貿', '易': '易', '税': '稅', '收': '收', '费': '費', '银': '銀', '行': '行',
+                '货': '貨', '币': '幣', '购': '購', '买': '買', '消': '消', '劳': '勞', '务': '務', '雇': '僱',
+                '员': '員', '职': '職', '岗': '崗', '位': '位', '聘': '聘', '龄': '齡', '养': '養', '医': '醫',
+                '疗': '療', '药': '藥', '险': '險', '贫': '貧', '富': '富', '差': '差', '距': '距', '阶': '階',
+                '层': '層', '稳': '穩', '处': '處', '罚': '罰', '犯': '犯', '罪': '罪', '监': '監', '狱': '獄',
+                '释': '釋', '复': '復', '兴': '興', '乡': '鄉', '农': '農', '网': '網', '络': '絡', '数': '數',
+                '码': '碼', '电': '電', '脑': '腦', '讯': '訊', '讨': '討', '请': '請', '让': '讓', '话': '話',
+                '说': '說', '读': '讀', '写': '寫', '听': '聽', '着': '著', '辩': '辯', '驳': '駁', '议': '議',
+                '仅': '僅', '虽': '雖', '然': '然', '却': '卻', '众': '眾', '无': '無', '尽': '盡', '广': '廣',
+                '严': '嚴', '伤': '傷', '害': '害', '损': '損', '失': '失', '败': '敗', '赢': '贏', '获': '獲',
+                '胜': '勝', '烦': '煩', '恼': '惱', '忧': '憂', '虑': '慮', '恐': '恐', '惧': '懼', '愤': '憤',
+                '怒': '怒', '满': '滿', '意': '意', '愉': '愉', '欢': '歡', '乐': '樂', '爱': '愛', '亲': '親',
+                '连': '連', '续': '續', '断': '斷', '绝': '絕', '终': '終', '坚': '堅', '持': '持', '奋': '奮',
+                '斗': '鬥', '努': '努', '力': '力', '尝': '嘗', '试': '試', '验': '驗', '检': '檢', '查': '查',
+                '测': '測', '确': '確', '保': '保', '护': '護', '维': '維', '修': '修', '补': '補', '完': '完',
+                '善': '善', '改': '改', '正': '正', '错': '錯', '误': '誤', '纠': '糾', '预': '預', '防': '防',
+                '备': '備', '类': '類', '属': '屬', '特': '特', '征': '徵', '异': '異', '同': '同', '相': '相',
+                '比': '比', '较': '較', '衡': '衡', '平': '平', '等': '等', '公': '公', '正': '正', '合': '合',
+                '理': '理', '科': '科', '技': '技', '研': '研', '究': '究', '探': '探', '索': '索', '信': '信',
+                '息': '息', '知': '知', '识': '識', '技': '技', '能': '能', '培': '培', '训': '訓', '练': '練',
+                '专': '專', '家': '家', '顾': '顧', '问': '問', '参': '參', '加': '加', '体': '體', '育': '育',
+                '健': '健', '康': '康', '营': '營', '養': '養', '膳': '膳', '食': '食', '锻': '鍛', '炼': '煉',
+                '适': '適', '当': '當', '合': '合', '塑': '塑', '料': '料', '污': '污', '染': '染', '废': '廢',
+                '弃': '棄', '排': '排', '放': '放', '温': '溫', '室': '室', '効': '效', '効': '效', '碳': '碳',
+            };
+            return text.replace(/./g, ch => map[ch] || ch);
+        }
+
+        async function callKimi(messages, maxTokens = 2048, temperature = 0.7) {
+            const key = getApiKey();
+            if (!key) throw new Error(t('alertNoApiKeyShort'));
+            const r = await fetch(AI_API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + key },
+                body: JSON.stringify({
+                    model: AI_MODEL,
+                    messages,
+                    stream: false,
+                    max_tokens: maxTokens,
+                    temperature
+                })
+            });
+            if (!r.ok) {
+                const status = r.status;
+                if (status === 401) throw new Error(t('apiInvalid') + ' (401)');
+                if (status === 429) throw new Error('API quota exceeded (429)');
+                throw new Error(`API error ${status}`);
+            }
+            const json = await r.json();
+            return json.choices?.[0]?.message?.content || '';
+        }
+
+        // ---- AI Feature 1: Smart Cluster Analysis ----
+        async function aiAnalyzeQuestion() {
+            const q = document.getElementById('essayInput').value.trim();
+            if (!q) { alert(t('alertNoQuestion')); return; }
+            if (!getApiKey()) { alert(t('alertNoApiKey')); return; }
+
+            const btn = document.getElementById('btnAiAnalyze');
+            btn.disabled = true;
+            btn.innerHTML = `<span class="ai-spinner"></span>${t('aiAnalyzing')}`;
+            const statusEl = document.getElementById('apiStatus');
+
+            // Build cluster summary for AI
+            const clusterSummary = CLUSTERS.map(c =>
+                `${c.id} ${c.name}（${c.en}）：${c.coreQ}`
+            ).join('\n');
+
+            const prompt = `You are an IELTS writing expert. Here are 12 IELTS essay clusters:
+
+${clusterSummary}
+
+Analyze this question:
+"${q}"
+
+Return JSON only (no markdown):
+{"cluster":"C1","reason":"簡述原因 / brief reason","extraArgsZh":["中文論點1","中文論點2","中文論點3"],"extraArgsEn":["English arg 1","English arg 2","English arg 3"]}
+
+Rules:
+1. cluster must be C1-C12
+2. reason: bilingual, within 30 words total
+3. extraArgsZh: 3 high-scoring arguments in Chinese
+4. extraArgsEn: 3 high-scoring arguments in English (matching the Chinese ones)
+5. Output JSON only, nothing else`;
+
+            try {
+                const raw = await callKimi([{ role: 'user', content: prompt }], 512, 0.4);
+                statusEl.textContent = t('aiConnected');
+                statusEl.className = 'api-status ok';
+
+                // Parse JSON
+                const match = raw.match(/\{[\s\S]*\}/);
+                if (!match) throw new Error('AI 回傳格式錯誤');
+                const result = JSON.parse(match[0]);
+
+                // Find cluster index
+                const cidx = CLUSTERS.findIndex(c => c.id === result.cluster);
+                if (cidx < 0) throw new Error('AI 推薦的集群不在範圍內');
+
+                // If AI provided extra args, save them BEFORE rendering
+                const argsZh = result.extraArgsZh || result.extraArgs || [];
+                const argsEn = result.extraArgsEn || result.extraArgs || [];
+                if (argsZh.length > 0 || argsEn.length > 0) {
+                    CLUSTERS[cidx]._aiArgsZh = argsZh;
+                    CLUSTERS[cidx]._aiArgsEn = argsEn;
+                }
+
+                // Render with AI recommendation
+                renderClusters(cidx);
+                // Show AI reason
+                const cName = currentLang === 'en' ? CLUSTERS[cidx].en : CLUSTERS[cidx].name;
+                document.getElementById('clusterHint').innerHTML =
+                    `${t('kimiRecommend')}<b>${CLUSTERS[cidx].id} ${cName}</b><br><span style="color:var(--dim);font-size:.85rem">${result.reason}</span>`;
+
+                goStep(1);
+            } catch (e) {
+                alert(t('aiAnalyzeFail') + e.message);
+                statusEl.textContent = '❌ ' + e.message;
+                statusEl.className = 'api-status err';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = t('btnAiAnalyze');
+            }
+        }
+
+
+
+        // ---- AI Feature 2: Paragraph Draft Generation ----
+        async function aiGenerateDraft() {
+            if (selectedEngines.size === 0) { alert(t('alertNoEngine')); return; }
+            if (!getApiKey()) { alert(t('alertNoApiKeyShort')); return; }
+
+            const btn = document.getElementById('btnAiDraft');
+            btn.disabled = true;
+            btn.innerHTML = `<span class="ai-spinner"></span>${t('aiWriting')}`;
+
+            const c = CLUSTERS[selectedCluster];
+            const q = document.getElementById('essayInput').value.trim();
+
+            // Build engine + vocab context (language-aware)
+            const isEn = currentLang === 'en';
+            const engineList = [...selectedEngines].map(eid => {
+                const eng = ENGINES[eid];
+                const engName = isEn && eng.nameEn ? eng.nameEn : eng.name;
+                const demo = c.demos?.find(d => d.eid === eid);
+                let demoLabel = '';
+                if (demo) {
+                    demoLabel = isEn && demo.labelEn ? demo.labelEn : demo.label;
+                }
+                const formulaLabel = isEn ? 'Formula' : '公式';
+                const demoLabelPrefix = isEn ? 'Example' : '示範';
+                const demoText = demo ? (isEn ? demo.text : (demo.textZh || demo.text)) : '';
+                return `${eid} ${engName}\n${formulaLabel}：${eng.formula}${demo ? '\n' + demoLabelPrefix + '：' + demoText.replace(/<\/?b>/g, '**') : ''}`;
+            }).join('\n\n');
+
+            const vocabList = c.vocab.map(v => {
+                const slotLabel = isEn && v.slotEn ? v.slotEn : v.slot;
+                const wordsDisplay = isEn ? v.words : (v.wordsZh || v.words);
+                return `${slotLabel}：${wordsDisplay}`;
+            }).join('\n');
+
+            const cName = isEn ? c.en : c.name;
+            const engineSampleLabel = [...selectedEngines].map(eid => {
+                const eng = ENGINES[eid];
+                return `[${eid} ${isEn && eng.nameEn ? eng.nameEn : eng.name}]`;
+            })[0] || '[E2 Cause Harm]';
+
+            const prompt = `You are an IELTS Band 8+ writing teacher. The student has selected the following engines and vocabulary. Please write complete paragraphs in BOTH English and Chinese.
+
+Topic: "${q}"
+Cluster: ${c.id} ${cName}
+
+Selected Engines (in paragraph order):
+${engineList}
+
+Available Vocabulary:
+${vocabList}
+
+Requirements:
+1. First, write the ENGLISH version:
+   - Start with the line: ===EN===
+   - Write one complete paragraph (3-5 sentences) for each engine, in English
+   - Each paragraph must strictly follow the engine formula's sentence structure
+   - Naturally incorporate the vocabulary listed above
+   - IMPORTANT: Use only CEFR A2 to B2 level vocabulary. Avoid advanced or uncommon words (C1/C2 level). Use simple, clear, everyday English that intermediate learners can understand. For example, use "help" not "facilitate", use "show" not "elucidate", use "big" not "substantial"
+   - Keep sentences clear and logical, but use simple word choices
+   - Label each paragraph with its engine code, e.g. ${engineSampleLabel}
+   - Add a [Conclusion] paragraph at the end
+
+2. Then, write the CHINESE version:
+   - Start with the line: ===ZH===
+   - MUST use Traditional Chinese (繁體中文/正體中文, as used in Taiwan), NEVER use Simplified Chinese (简体中文)
+   - For example: use 環境 not 环境, use 經濟 not 经济, use 認為 not 认为, use 礦 not 矿
+   - Follow the same engine formula structure but expressed in Chinese
+   - Use the Chinese vocabulary equivalents
+   - Label each paragraph with the same engine code
+   - Add a [結論] paragraph at the end
+
+3. Do not use markdown formatting, just plain text with line breaks
+4. The separator lines ===EN=== and ===ZH=== must appear on their own lines
+5. CRITICAL: The Chinese text MUST be in Traditional Chinese (繁體中文) only. Do not mix simplified characters.`;
+
+            try {
+                const draft = await callKimi([
+                    { role: 'system', content: 'You are an IELTS writing expert. When writing Chinese, you MUST always use Traditional Chinese (繁體中文/正體中文) as used in Taiwan. Never use Simplified Chinese characters. For example: 環境(correct) not 环境, 經濟(correct) not 经济, 認為(correct) not 认为.' },
+                    { role: 'user', content: prompt }
+                ], 4096, 0.7);
+
+                // Parse bilingual response
+                const enMatch = draft.match(/===EN===([\s\S]*?)(?====ZH===|$)/);
+                const zhMatch = draft.match(/===ZH===([\s\S]*)/);
+
+                if (enMatch && zhMatch) {
+                    aiDraftEn = enMatch[1].trim();
+                    aiDraftZh = toTraditional(zhMatch[1].trim());
+                } else {
+                    // Fallback: if markers not found, treat entire response as both
+                    aiDraftEn = draft.trim();
+                    aiDraftZh = toTraditional(draft.trim());
+                }
+
+                showAiDraft();
+
+                document.getElementById('apiStatus').textContent = t('aiConnected');
+                document.getElementById('apiStatus').className = 'api-status ok';
+            } catch (e) {
+                alert(t('aiGenerateFail') + e.message);
+                document.getElementById('apiStatus').textContent = '❌ ' + e.message;
+                document.getElementById('apiStatus').className = 'api-status err';
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = t('btnAiDraft');
+            }
+        }
+
+        function showAiDraft() {
+            const area = document.getElementById('aiDraftArea');
+            if (!area) return;
+            const draftText = currentLang === 'zh' ? aiDraftZh : aiDraftEn;
+            if (!draftText) return;
+            area.innerHTML = `<div class="ai-draft">
+                <button class="copy-btn" onclick="copyAiDraft()">${t('copyBtn')}</button>
+                <div id="aiDraftText">${draftText.replace(/\n/g, '<br>')}</div>
+            </div>`;
+        }
+
+        function copyAiDraft() {
+            const el = document.getElementById('aiDraftText');
+            navigator.clipboard.writeText(el.innerText).then(() => {
+                const btn = el.parentElement.querySelector('.copy-btn');
+                btn.textContent = t('copied');
+                setTimeout(() => btn.textContent = t('copyBtn'), 1500);
+            });
+        }
+
+        // Auto-load API key from localStorage + init lang
+        (function () {
+            const saved = localStorage.getItem('ielts_planner_apikey');
+            if (saved) document.getElementById('apiKeyInput').value = saved;
+            document.getElementById('apiKeyInput').addEventListener('change', function () {
+                localStorage.setItem('ielts_planner_apikey', this.value.trim());
+            });
+            // Initialize language from saved preference
+            if (currentLang !== 'zh') switchLang(currentLang);
+        })();
+    </script>
+</body>
+
+</html>
