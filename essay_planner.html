@@ -651,6 +651,243 @@
                 right: .5rem
             }
         }
+
+        /* AI Thinking Chain */
+        .thinking-chain {
+            display: none;
+            margin: 1rem 0
+        }
+
+        .thinking-chain.show {
+            display: block
+        }
+
+        .tc-step {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: .8rem;
+            animation: fadeIn .4s ease both
+        }
+
+        .tc-step:nth-child(1) {
+            animation-delay: 0s
+        }
+
+        .tc-step:nth-child(2) {
+            animation-delay: .1s
+        }
+
+        .tc-step:nth-child(3) {
+            animation-delay: .2s
+        }
+
+        .tc-header {
+            padding: .8rem 1rem;
+            font-weight: 700;
+            font-size: .9rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .tc-header.s1 {
+            color: var(--accent2)
+        }
+
+        .tc-header.s2 {
+            color: var(--green)
+        }
+
+        .tc-header.s3 {
+            color: var(--orange)
+        }
+
+        .tc-header.s4 {
+            color: var(--red)
+        }
+
+        .tc-body {
+            padding: 1rem
+        }
+
+        .tc-conflict {
+            background: rgba(225, 112, 85, .08);
+            border-left: 3px solid var(--red);
+            padding: .6rem 1rem;
+            border-radius: 0 8px 8px 0;
+            margin: .5rem 0;
+            font-weight: 600;
+            color: var(--red);
+            font-size: .88rem
+        }
+
+        .tc-vocab-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .85rem;
+            margin-top: .5rem
+        }
+
+        .tc-vocab-table th {
+            background: var(--surface);
+            text-align: left;
+            padding: .5rem .8rem;
+            font-size: .75rem;
+            color: var(--dim);
+            text-transform: uppercase;
+            letter-spacing: .5px
+        }
+
+        .tc-vocab-table td {
+            padding: .5rem .8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, .04)
+        }
+
+        .tc-vocab-table .col-s {
+            color: var(--dim)
+        }
+
+        .tc-vocab-table .col-h {
+            color: var(--green);
+            font-weight: 600
+        }
+
+        .tc-vocab-table .col-d {
+            color: var(--accent);
+            font-size: .8rem
+        }
+
+        .tc-tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .4rem;
+            margin-top: .5rem
+        }
+
+        .tc-tag {
+            background: rgba(0, 206, 201, .1);
+            color: var(--green);
+            border: 1px solid rgba(0, 206, 201, .2);
+            padding: .3rem .7rem;
+            border-radius: 6px;
+            font-size: .8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s
+        }
+
+        .tc-tag:hover {
+            background: rgba(0, 206, 201, .2);
+            transform: translateY(-1px)
+        }
+
+        .tc-engine {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: .8rem;
+            border-left: 3px solid var(--orange)
+        }
+
+        .tc-engine-label {
+            font-size: .8rem;
+            font-weight: 700;
+            color: var(--orange);
+            margin-bottom: .3rem
+        }
+
+        .tc-engine-formula {
+            font-family: monospace;
+            color: var(--dim);
+            font-size: .82rem;
+            padding: .5rem;
+            background: rgba(0, 0, 0, .2);
+            border-radius: 6px;
+            margin: .3rem 0
+        }
+
+        .tc-engine-example {
+            font-style: italic;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: .88rem
+        }
+
+        .tc-think {
+            background: var(--surface);
+            border-radius: 10px;
+            padding: .8rem 1rem;
+            margin-top: .6rem
+        }
+
+        .tc-think-title {
+            font-weight: 700;
+            font-size: .85rem;
+            margin-bottom: .4rem
+        }
+
+        .tc-think-title.pro {
+            color: var(--green)
+        }
+
+        .tc-think-title.con {
+            color: var(--red)
+        }
+
+        .tc-think-title.pheno {
+            color: var(--accent2)
+        }
+
+        .tc-think-title.sol {
+            color: var(--orange)
+        }
+
+        .tc-think ul {
+            padding-left: 1rem;
+            margin: 0
+        }
+
+        .tc-think li {
+            color: var(--dim);
+            font-size: .85rem;
+            margin-bottom: .3rem;
+            line-height: 1.5
+        }
+
+        .tc-strategy {
+            background: linear-gradient(135deg, rgba(108, 92, 231, .05), rgba(0, 206, 201, .05));
+            border: 1px solid rgba(108, 92, 231, .15);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: .6rem
+        }
+
+        .tc-strategy h4 {
+            color: var(--accent2);
+            font-size: .85rem;
+            margin-bottom: .5rem
+        }
+
+        .tc-strategy p {
+            font-size: .85rem;
+            color: var(--dim);
+            margin-bottom: .4rem
+        }
+
+        .tc-demo {
+            background: rgba(0, 0, 0, .2);
+            border-left: 3px solid var(--accent2);
+            border-radius: 0 8px 8px 0;
+            padding: .8rem 1rem;
+            margin-top: .8rem;
+            font-style: italic;
+            color: var(--dim);
+            line-height: 1.7;
+            font-size: .88rem
+        }
     </style>
 </head>
 
@@ -708,8 +945,10 @@
             <div class="card">
                 <h3 data-i18n="s1Title">🎯 選擇最接近的集群</h3>
                 <p id="clusterHint" data-i18n="s1Hint">系統推薦如下，你也可以自行選擇：</p>
+                <div id="aiHintArea"></div>
             </div>
             <div class="cluster-grid" id="clusterGrid"></div>
+            <div id="thinkingChainContainer" class="thinking-chain"></div>
             <div class="btn-row">
                 <button class="btn btn-outline" onclick="goStep(0)" data-i18n="btnBack">← 返回</button>
                 <button class="btn btn-primary" id="btnToStep2" onclick="goStep(2)" disabled
@@ -933,6 +1172,7 @@
 
             // Update AI draft display if exists
             showAiDraft();
+            renderAiHint();
         }
 
         // ============ DATA ============
@@ -1265,6 +1505,7 @@
         let currentStep = 0;
         let selectedCluster = null;
         let selectedEngines = new Set();
+        let lastAiData = null;
 
         // ============ LOGIC ============
         function goStep(n) {
@@ -1326,11 +1567,99 @@
             renderEngines();
         }
 
+        function renderAiHint() {
+            const container = document.getElementById('aiHintArea');
+            if (!lastAiData) {
+                container.innerHTML = '';
+                return;
+            }
+            const { cidx, sidx, confidence, reason, gap, bridge } = lastAiData;
+
+            const cName = currentLang === 'en' ? CLUSTERS[cidx].en : CLUSTERS[cidx].name;
+            const confColor = confidence >= 80 ? 'var(--green)' : confidence >= 60 ? 'var(--orange)' : 'var(--red)';
+            const confEmoji = confidence >= 80 ? '🟢' : confidence >= 60 ? '🟡' : '🔴';
+
+            let hintHtml = `
+            <div style="margin-top:0.8rem; padding:1.2rem; background:rgba(108,92,231,.08); border-radius:10px; border-left:4px solid var(--accent)">
+                <div style="margin-bottom:0.6rem;font-size:1.05rem;">
+                    <b>${t('kimiRecommend')}${CLUSTERS[cidx].id} ${cName}</b>
+                    <span style="color:${confColor};font-weight:700;margin-left:.6rem">${confEmoji} ${confidence}%</span>
+                </div>
+                <div style="color:var(--dim);font-size:.9rem;line-height:1.6;">${splitLang(reason)}</div>`;
+
+            // Bridge explanation
+            if (bridge) {
+                hintHtml += `<div style="background:rgba(108,92,231,.06);border-left:3px solid var(--accent);padding:.8rem 1rem;border-radius:0 8px 8px 0;margin-top:.8rem;font-size:.88rem">
+                    <b style="color:var(--accent2)">🔗 ${currentLang === 'en' ? 'How to Connect' : '搭橋策略'}：</b>
+                    <span style="color:var(--dim)">${splitLang(bridge)}</span>
+                </div>`;
+            }
+
+            // Low confidence warning
+            if (confidence < 75 && gap) {
+                hintHtml += `<div style="background:rgba(253,203,110,.08);border-left:3px solid var(--orange);padding:.8rem 1rem;border-radius:0 8px 8px 0;margin-top:.8rem;font-size:.88rem">
+                    <b style="color:var(--orange)">⚠️ ${currentLang === 'en' ? 'Partial Match' : '部分匹配'}：</b>
+                    <span style="color:var(--dim)">${splitLang(gap)}</span>
+                </div>`;
+            }
+
+            // Secondary cluster suggestion
+            if (sidx >= 0 && sidx !== cidx) {
+                const sName = currentLang === 'en' ? CLUSTERS[sidx].en : CLUSTERS[sidx].name;
+                hintHtml += `<div style="margin-top:1rem;font-size:.9rem;color:var(--dim)">
+                    💡 ${currentLang === 'en' ? 'Also consider' : '也可參考'}：
+                    <span style="color:var(--accent2);cursor:pointer;text-decoration:underline;font-weight:bold;" onclick="selectCluster(${sidx})">${CLUSTERS[sidx].id} ${sName}</span>
+                </div>`;
+            }
+            hintHtml += '</div>';
+
+            container.innerHTML = hintHtml;
+        }
+
         function renderArguments() {
             const c = CLUSTERS[selectedCluster];
             const cName = currentLang === 'en' ? c.en : c.name;
             document.getElementById('argTitle').textContent = `💡 ${c.icon} ${c.id} ${cName} — ${t('s2Title').replace('💡 ', '')}`;
-            let html = `<div class="card"><p style="color:var(--orange);font-size:.85rem;margin-bottom:.8rem">${t('argCoreQ')}${c.coreQ}</p>
+            let html = '';
+
+            // ===== 1. AI topic-specific arguments (FIRST) =====
+            const aiArgs = currentLang === 'en' ? (c._aiArgsEn || c._aiArgsZh) : (c._aiArgsZh || c._aiArgsEn);
+            if (aiArgs && aiArgs.length > 0) {
+                html += '<div class="card" style="border-color:var(--accent);border-width:2px">';
+                html += `<h3 style="color:var(--accent2);font-size:.95rem;margin-bottom:.6rem">🤖 ${t('aiExtraTitle')}</h3>`;
+                html += `<table class="arg-table"><tr><th>${t('argSource')}</th><th>${t('argCoreArg')}</th></tr>`;
+                aiArgs.forEach(a => {
+                    html += `<tr><td><span class="tag tag-blue">AI</span></td><td>${a}</td></tr>`;
+                });
+                html += '</table></div>';
+            }
+
+            // ===== 2. Bridge Strategy (connect topic → cluster) =====
+            if (c._aiBridge) {
+                const confidence = c._aiConfidence || 0;
+                const confColor = confidence >= 80 ? 'var(--green)' : confidence >= 60 ? 'var(--orange)' : 'var(--red)';
+                const confEmoji = confidence >= 80 ? '🟢' : confidence >= 60 ? '🟡' : '🔴';
+
+                html += `<div class="card" style="border-color:var(--accent);background:linear-gradient(135deg, rgba(108,92,231,.04), rgba(0,206,201,.04));margin-top:.5rem">
+                    <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem;flex-wrap:wrap">
+                        <h3 style="color:var(--accent2);font-size:.9rem;margin:0">🔗 ${currentLang === 'en' ? 'Bridge Strategy: Topic → Cluster' : '搭橋策略：題目 → 集群'}</h3>
+                        <span style="color:${confColor};font-weight:700;font-size:.8rem">${confEmoji} ${currentLang === 'en' ? 'Match' : '匹配'} ${confidence}%</span>
+                    </div>
+                    <p style="color:var(--dim);font-size:.88rem;line-height:1.7;margin-bottom:.6rem">${splitLang(c._aiBridge)}</p>`;
+
+                if (c._aiGap && confidence < 75) {
+                    html += `<div style="background:rgba(253,203,110,.08);border-left:3px solid var(--orange);padding:.5rem .8rem;border-radius:0 8px 8px 0;margin-top:.4rem;font-size:.82rem">
+                        <b style="color:var(--orange)">⚠️ ${currentLang === 'en' ? 'Gap' : '缺口'}：</b>
+                        <span style="color:var(--dim)">${splitLang(c._aiGap)}</span>
+                    </div>`;
+                }
+                html += '</div>';
+            }
+
+            // ===== 3. Cluster core arguments (built-in) =====
+            html += `<div class="card" style="margin-top:.5rem">
+                <h3 style="font-size:.9rem;color:var(--dim);margin-bottom:.6rem">${c.icon} ${currentLang === 'en' ? 'Cluster Core Arguments' : '集群核心論點'}</h3>
+                <p style="color:var(--orange);font-size:.85rem;margin-bottom:.8rem">${t('argCoreQ')}${c.coreQ}</p>
     <table class="arg-table"><tr><th>${t('argDirection')}</th><th>${t('argCoreArg')}</th></tr>`;
             c.args.forEach(a => {
                 const dirLabel = currentLang === 'en' && a.dirEn ? a.dirEn : a.dir;
@@ -1340,18 +1669,6 @@
             });
             html += '</table></div>';
 
-            // AI extra arguments (if available)
-            const aiArgs = currentLang === 'en' ? (c._aiArgsEn || c._aiArgsZh) : (c._aiArgsZh || c._aiArgsEn);
-            if (aiArgs && aiArgs.length > 0) {
-                html += '<div class="card" style="border-color:var(--accent);margin-top:.5rem">';
-                html += `<h3 style="color:var(--accent2);font-size:.9rem">${t('aiExtraTitle')}</h3>`;
-                html += `<table class="arg-table"><tr><th>${t('argSource')}</th><th>${t('argCoreArg')}</th></tr>`;
-                aiArgs.forEach(a => {
-                    html += `<tr><td><span class="tag tag-blue">AI</span></td><td>${a}</td></tr>`;
-                });
-                html += '</table></div>';
-            }
-
             document.getElementById('argContent').innerHTML = html;
         }
 
@@ -1359,14 +1676,51 @@
             const c = CLUSTERS[selectedCluster];
             const cName = currentLang === 'en' ? c.en : c.name;
             document.getElementById('vocabTitle').textContent = `📥 ${c.icon} ${c.id} — ${t('s3Title').replace('📥 ', '')}`;
-            let html = '<div class="card vocab-section">';
+            let html = '';
+
+            // ===== 1. AI topic-specific hypernyms (FIRST) =====
+            if (c._aiTopicVocab && c._aiTopicVocab.length > 0) {
+                html += '<div class="card vocab-section" style="border-color:var(--accent);border-width:2px">';
+                html += `<h3 style="color:var(--accent2);font-size:.95rem;margin-bottom:.6rem">🤖 ${currentLang === 'en' ? 'AI Topic-Specific Hypernyms' : 'AI 題目專屬進階詞彙'}</h3>`;
+                c._aiTopicVocab.forEach(cat => {
+                    html += `<div class="vocab-row">
+                        <span class="vocab-label" style="background:rgba(162,155,254,.2);color:var(--accent2)">${splitLang(cat.category)}</span>
+                        <span class="vocab-words" style="color:var(--green);font-weight:600">${(cat.words || []).map(w => {
+                        let englishWord = w;
+                        if (w.includes('|||')) englishWord = w.split('|||')[1];
+                        else if (w.includes('|')) englishWord = w.split('|').pop();
+                        englishWord = englishWord.trim();
+
+                        // Clean up the display word by stripping out any stray separator characters just in case
+                        let displayWord = splitLang(w);
+                        displayWord = displayWord.replace(/\|/g, '').trim();
+
+                        const safe = englishWord.replace(/"/g, '&quot;');
+                        return `<span data-copy="${safe}" style="cursor:pointer;display:inline-block;padding:.15rem .5rem;margin:.15rem;border-radius:6px;background:rgba(0,206,201,.08);border:1px solid rgba(0,206,201,.15);transition:all .2s" title="${t('vocabClickCopy')}" onmouseover="this.style.background='rgba(0,206,201,.2)'" onmouseout="this.style.background='rgba(0,206,201,.08)'">${displayWord}</span>`;
+                    }).join(' ')}</span>
+                    </div>`;
+                });
+                html += '</div>';
+            }
+
+            // ===== 2. Vocab Bridge Strategy =====
+            if (c._aiVocabBridge) {
+                html += `<div class="card" style="border-color:var(--accent);background:linear-gradient(135deg, rgba(108,92,231,.04), rgba(0,206,201,.04));margin-top:.5rem">
+                    <h3 style="color:var(--accent2);font-size:.9rem;margin-bottom:.5rem">🔗 ${currentLang === 'en' ? 'Vocab Bridge: How to Combine' : '詞彙搭橋：如何混搭使用'}</h3>
+                    <p style="color:var(--dim);font-size:.88rem;line-height:1.7">${splitLang(c._aiVocabBridge)}</p>
+                </div>`;
+            }
+
+            // ===== 3. Cluster core vocabulary (built-in) =====
+            html += `<div class="card vocab-section" style="margin-top:.5rem">
+                <h3 style="font-size:.9rem;color:var(--dim);margin-bottom:.6rem">${c.icon} ${currentLang === 'en' ? 'Cluster Core Vocabulary' : '集群核心詞彙'}</h3>`;
             c.vocab.forEach(v => {
                 const slotLabel = currentLang === 'en' && v.slotEn ? v.slotEn : v.slot;
                 const wordsDisplay = currentLang === 'zh' && v.wordsZh ? v.wordsZh : v.words;
-                const wordsToCopy = v.words; // Always copy English words for IELTS use
+                const wordsToCopy = v.words;
                 html += `<div class="vocab-row">
       <span class="vocab-label">${slotLabel}</span>
-      <span class="vocab-words" onclick="navigator.clipboard.writeText('${wordsToCopy.replace(/'/g, "\\'")}');this.style.color='var(--green)';setTimeout(()=>this.style.color='',800)" style="cursor:pointer" title="${t('vocabClickCopy')}">${wordsDisplay}</span>
+      <span class="vocab-words" data-copy="${wordsToCopy.replace(/"/g, '&quot;')}" style="cursor:pointer" title="${t('vocabClickCopy')}">${wordsDisplay}</span>
     </div>`;
             });
             html += '</div>';
@@ -1596,7 +1950,20 @@
             return json.choices?.[0]?.message?.content || '';
         }
 
-        // ---- AI Feature 1: Smart Cluster Analysis ----
+        // ---- Helper: extract current language from bilingual text (zh|||en) ----
+        function splitLang(text) {
+            if (!text) return '';
+            // Handle both perfect ||| and AI typo |
+            let parts = text.split('|||');
+            if (parts.length < 2 && text.includes('|')) {
+                parts = text.split('|');
+            }
+            if (parts.length >= 2) return (currentLang === 'en' ? parts[parts.length - 1] : parts[0]).trim();
+            // Fallback: If AI completely ignores the separator and returns only one language string (usually English)
+            return text.trim();
+        }
+
+        // ---- AI Feature 1: Smart Cluster Analysis with Confidence ----
         async function aiAnalyzeQuestion() {
             const q = document.getElementById('essayInput').value.trim();
             if (!q) { alert(t('alertNoQuestion')); return; }
@@ -1619,44 +1986,190 @@ ${clusterSummary}
 Analyze this question:
 "${q}"
 
-Return JSON only (no markdown):
-{"cluster":"C1","reason":"簡述原因 / brief reason","extraArgsZh":["中文論點1","中文論點2","中文論點3"],"extraArgsEn":["English arg 1","English arg 2","English arg 3"]}
+Return JSON ONLY (no markdown). You must strictly follow this exact JSON structure:
+{
+  "cluster": "C1",
+  "confidence": 85,
+  "secondary": "C6",
+  "reason": "繁體中文簡述|||English brief",
+  "bridge": "繁體中文解釋題目焦點如何連結到此集群|||English explanation",
+  "gap": "繁體中文此集群可能遺漏的面向|||English gap",
+  "extraArgsZh": [
+    "針對此題目的中文論點1",
+    "中文論點2",
+    "中文論點3"
+  ],
+  "extraArgsEn": [
+    "Topic-specific English arg 1",
+    "English arg 2",
+    "English arg 3"
+  ],
+  "topicVocab": [
+    {
+      "category": "行為機制|||Action Mechanisms",
+      "words": ["過濾氣泡|||filter bubble", "同溫層|||echo chamber", "群體迷思|||groupthink"]
+    },
+    {
+      "category": "概念名詞|||Concepts",
+      "words": ["中文詞彙|||English word", "中文詞彙|||English word"]
+    }
+  ],
+  "vocabBridge": "繁體中文說明如何將題目詞彙和集群詞彙搭配|||English: how to combine topic vocab with cluster vocab"
+}
 
 Rules:
-1. cluster must be C1-C12
-2. reason: bilingual, within 30 words total
-3. extraArgsZh: 3 high-scoring arguments in Chinese
-4. extraArgsEn: 3 high-scoring arguments in English (matching the Chinese ones)
-5. Output JSON only, nothing else`;
+1. cluster: the BEST match from C1-C12
+2. confidence: 0-100 integer indicating how well this cluster fits the topic
+3. secondary: the SECOND best cluster (different from cluster)
+4. reason: bilingual, within 30 words per language
+5. bridge: bilingual, explain how to answer the SPECIFIC TOPIC (the user's question) by using the cluster theme purely as a foundational tool. The focus must be on the specific topic, not the cluster. (max 50 words each language)
+6. gap: bilingual, what aspects of the topic this cluster does NOT cover well (max 30 words each language). If confidence >= 90, set gap to empty string ""
+7. extraArgsZh/En: 3 arguments SPECIFIC to this question (not generic cluster arguments). Use Traditional Chinese
+8. topicVocab: 3-4 categories of advanced English HYPERNYM words specific to this topic (not the cluster). IMPORTANT: The "category" field and EVERY string inside the "words" array MUST be bilingual using the ||| separator! (e.g. "行為|||Actions" and "同溫層|||echo chamber"). Each category has 3-4 words. Words should be CEFR B2-C1 level academic vocabulary
+9. vocabBridge: bilingual, explain how to COMBINE topic-specific vocab with the cluster core vocab in essay writing (max 40 words each language)
+10. IMPORTANT: For ALL bilingual fields, the entire string MUST be enclosed in ONE pair of double quotes. The ||| goes INSIDE the quotes. Example: "中文內容|||英文 content"
+11. CRITICAL: For all Chinese text, you MUST use natural, fluent Traditional Chinese (zh-TW) commonly used in Taiwan. DO NOT use mainland Chinese terms, machine translations, or RARE/ARCHAIC characters (e.g. use "融合" instead of hallucinated words like "僾合"). Use simple, modern, accurate vocabulary.
+12. CRITICAL JSON VALIDITY: Your JSON output must be 100% strictly valid.
+    - NEVER use Chinese commas (、或，) to separate elements in JSON arrays! Use standard English commas (,) only. Example: ["word1", "word2"]
+    - NEVER use Chinese quotation marks (“” or 「」). Use standard English double quotes (") only.
+    - In JSON, ALL keys and string values MUST be enclosed in double quotes (e.g., "key": "value"). NEVER use single quotes (') to enclose keys or values.
+    - If you need to use a quote INSIDE a string value, you MUST use a single quote (').
+    - NEVER put double quotes around double quotes (e.g., ""text"").
+    - NEVER use string concatenation (e.g., "a" + "b"). Just write a single string.
+    - DO NOT output <unk>, <tool_call>, or any other system tags.
+    - DO NOT leave trailing commas.
+13. OUTPUT JSON ONLY. No explanation. No markdown. Just the raw JSON object.`;
 
             try {
-                const raw = await callKimi([{ role: 'user', content: prompt }], 512, 0.4);
-                statusEl.textContent = t('aiConnected');
-                statusEl.className = 'api-status ok';
+                let result = null;
+                for (let attempt = 1; attempt <= 3; attempt++) {
+                    try {
+                        const raw = await callKimi([{ role: 'user', content: prompt }], 2000, 0.4);
+                        statusEl.textContent = attempt === 1 ? t('aiConnected') : `${t('aiConnected')} (Retry ${attempt}/3)`;
+                        statusEl.className = 'api-status ok';
 
-                // Parse JSON
-                const match = raw.match(/\{[\s\S]*\}/);
-                if (!match) throw new Error('AI 回傳格式錯誤');
-                const result = JSON.parse(match[0]);
+                        // Parse JSON with repair for truncated responses
+                        let s = raw.replace(/```json\s*/gi, '').replace(/```\s*/g, '');
+                        s = s.replace(/[\r\n]+/g, ' '); // remove newlines that could break JSON string values
+
+                        // Advanced cleanup: remove control characters that might break JSON
+                        s = s.replace(/[\x00-\x1F\x7F-\x9F]/g, "");
+
+                        // Powerful AI Syntax Error Fixes
+                        // -1. Fix specific word hallucination "僾合" -> "融合"
+                        s = s.replace(/僾合/g, '融合');
+                        // 0. Kill hallucinated system tokens and full-width quotes
+                        s = s.replace(/<tool_call>|<unk>|<\|.*?\|>/g, '');
+                        s = s.replace(/[“”]/g, '"');
+                        // 1. Fix Chinese commas in arrays (both double and single quotes)
+                        s = s.replace(/"\s*[、，]\s*"/g, '", "');
+                        s = s.replace(/'\s*[、，]\s*'/g, '", "');
+                        // 2. Fix double double-quotes: :""text"" -> :"text" safely
+                        s = s.replace(/:\s*""([^"]*?)""\s*([,}])/g, ':"$1"$2');
+                        s = s.replace(/:\s*""([,}])/g, ':""$1'); // restore empty strings like :"", if matched by accident
+                        // 3. Fix ||| outside of quotes (e.g. "中文" |||English" or "中文" ||| "English")
+                        s = s.replace(/"([^"]*)"\s*\|\|\|\s*"([^"]*)"/g, '"$1|||$2"'); // both quoted
+                        s = s.replace(/"([^"]*)"\s*\|\|\|\s*([^"]*)"/g, '"$1|||$2"');   // right half quoted
+                        // 4. Fix stray single quotes used for JSON array elements: ['text', 'text']
+                        s = s.replace(/\['/g, '["');
+                        s = s.replace(/'\]/g, '"]');
+                        s = s.replace(/'\s*,\s*'/g, '", "');
+                        s = s.replace(/'\s*,\s*"/g, '", "');
+                        s = s.replace(/"\s*,\s*'/g, '", "');
+                        // 5. Fix random '>>>' separator instead of '|||'
+                        s = s.replace(/>>>/g, '|||');
+                        // 6. Fix JSON string concatenation (e.g. "a" + "b" -> "ab" or 'a' + 'b' -> "ab")
+                        s = s.replace(/["']\s*\+\s*["']/g, '');
+                        // 7. Fix mismatched or single-quoted keys (e.g. 'words': or "words':)
+                        s = s.replace(/([{,]\s*)['"](\w+)['"]\s*:/g, '$1"$2":');
+                        // 8. Fix simple single-quoted string values (e.g. :'value',)
+                        s = s.replace(/:\s*'([^']*)'\s*([,}])/g, ':"$1"$2');
+                        // 9. Fix completely missing "category": key (e.g. }, "Auxiliary...": or }, Auxiliary...)
+                        s = s.replace(/},\s*([^"{]+?)\s*"\s*,\s*"words"\s*:/gi, '},{"category":"$1","words":');
+                        s = s.replace(/},\s*"([^"{]+?)"\s*,\s*"words"\s*:/gi, '},{"category":"$1","words":');
+                        // 10. Fix missing comma between array objects (e.g. } { or } "key":)
+                        s = s.replace(/}\s*{/g, '},{');
+                        s = s.replace(/}\s*"/g, '},"');
+
+                        const match = s.match(/\{[\s\S]*\}/);
+                        let jsonStr = match ? match[0] : s.trim();
+                        if (!jsonStr.startsWith('{')) throw new Error('AI 回傳格式錯誤：找不到 JSON 起始括號');
+
+                        try {
+                            result = JSON.parse(jsonStr);
+                        } catch (e1) {
+                            console.warn('First JSON parse failed (Usually unescaped quotes or trailing commas):', e1.message);
+                            console.log('--- RAW AI OUTPUT ---', raw);
+                            console.log('--- CLEANED JSON STRING ---', jsonStr);
+
+                            // Basic attempt to fix unescaped quotes inside strings (heuristics)
+                            // This is hard to do perfectly, but we try the repair truncated JSON logic
+                            console.warn('Attempting JSON repair...');
+                            jsonStr = jsonStr.replace(/,\s*"[^"]*"?\s*:?\s*"?[^"]*$/, ''); // remove incomplete last field
+                            jsonStr = jsonStr.replace(/,\s*\[[^\]]*$/, '');  // remove incomplete array
+                            jsonStr = jsonStr.replace(/,\s*$/, '');          // remove trailing comma
+                            // Close unclosed strings, brackets, braces
+                            let inStr = false, esc = false, ob = 0, ok = 0;
+                            for (const ch of jsonStr) {
+                                if (esc) { esc = false; continue; }
+                                if (ch === '\\' && inStr) { esc = true; continue; }
+                                if (ch === '"') { inStr = !inStr; continue; }
+                                if (inStr) continue;
+                                if (ch === '{') ob++; else if (ch === '}') ob--;
+                                if (ch === '[') ok++; else if (ch === ']') ok--;
+                            }
+                            if (inStr) jsonStr += '"';
+                            for (let i = 0; i < ok; i++) jsonStr += ']';
+                            for (let i = 0; i < ob; i++) jsonStr += '}';
+                            jsonStr = jsonStr.replace(/,\s*([}\]])/g, '$1'); // trailing commas before close
+                            result = JSON.parse(jsonStr);
+                        }
+
+                        break; // IF WE REACH HERE, parse succeeded! Break out of the retry loop.
+                    } catch (err) {
+                        console.warn(`AI Parsing failed on attempt ${attempt}/3:`, err.message);
+                        if (attempt === 3) throw err; // Give up after 3 tries
+                        statusEl.textContent = currentLang === 'en' ? `Formatting issue, retrying... (${attempt}/3)` : `格式偏差，自動重試... (${attempt}/3)`;
+                        statusEl.style.color = 'var(--orange)';
+                    }
+                } // End of 3-attempt loop
 
                 // Find cluster index
                 const cidx = CLUSTERS.findIndex(c => c.id === result.cluster);
                 if (cidx < 0) throw new Error('AI 推薦的集群不在範圍內');
 
-                // If AI provided extra args, save them BEFORE rendering
-                const argsZh = result.extraArgsZh || result.extraArgs || [];
-                const argsEn = result.extraArgsEn || result.extraArgs || [];
+                const confidence = Math.min(100, Math.max(0, result.confidence || 50));
+                const secondaryId = result.secondary || '';
+                const sidx = CLUSTERS.findIndex(c => c.id === secondaryId);
+
+                // Save AI data
+                const argsZh = result.extraArgsZh || [];
+                const argsEn = result.extraArgsEn || [];
                 if (argsZh.length > 0 || argsEn.length > 0) {
                     CLUSTERS[cidx]._aiArgsZh = argsZh;
                     CLUSTERS[cidx]._aiArgsEn = argsEn;
                 }
+                CLUSTERS[cidx]._aiBridge = result.bridge || '';
+                CLUSTERS[cidx]._aiGap = result.gap || '';
+                CLUSTERS[cidx]._aiConfidence = confidence;
+                CLUSTERS[cidx]._aiTopicVocab = result.topicVocab || [];
+                CLUSTERS[cidx]._aiVocabBridge = result.vocabBridge || '';
 
-                // Render with AI recommendation
+                // Save global AI Data for language switching render
+                lastAiData = {
+                    cidx,
+                    sidx,
+                    confidence,
+                    reason: result.reason || '',
+                    gap: result.gap || '',
+                    bridge: result.bridge || ''
+                };
+
+                // Render cluster grid
                 renderClusters(cidx);
-                // Show AI reason
-                const cName = currentLang === 'en' ? CLUSTERS[cidx].en : CLUSTERS[cidx].name;
-                document.getElementById('clusterHint').innerHTML =
-                    `${t('kimiRecommend')}<b>${CLUSTERS[cidx].id} ${cName}</b><br><span style="color:var(--dim);font-size:.85rem">${result.reason}</span>`;
+
+                // Render AI hint block
+                renderAiHint();
 
                 goStep(1);
             } catch (e) {
@@ -1799,12 +2312,23 @@ Requirements:
             });
         }
 
-        // Auto-load API key from localStorage + init lang
+        // Auto-load API key from localStorage + init lang + event delegation
         (function () {
             const saved = localStorage.getItem('ielts_planner_apikey');
             if (saved) document.getElementById('apiKeyInput').value = saved;
             document.getElementById('apiKeyInput').addEventListener('change', function () {
                 localStorage.setItem('ielts_planner_apikey', this.value.trim());
+            });
+            // Global click-to-copy for [data-copy] elements
+            document.addEventListener('click', function (e) {
+                const el = e.target.closest('[data-copy]');
+                if (el) {
+                    navigator.clipboard.writeText(el.dataset.copy).then(() => {
+                        const orig = el.style.color;
+                        el.style.color = 'var(--green)';
+                        setTimeout(() => el.style.color = orig, 800);
+                    });
+                }
             });
             // Initialize language from saved preference
             if (currentLang !== 'zh') switchLang(currentLang);
